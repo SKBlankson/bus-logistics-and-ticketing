@@ -11,9 +11,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+# from decouple import config
+import os
 import mysql.connector
 import pyodbc
+from azure.identity import ManagedIdentityCredential, ClientSecretCredential
+from dotenv import load_dotenv
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -101,14 +105,25 @@ WSGI_APPLICATION = 'AshesiLogisticsAPI.wsgi.application'
 #     }
 # }
 #
+
+
+# managed_identity_client_id = os.getenv('AZURE_MYSQL_CLIENTID')
+# cred = ManagedIdentityCredential(client_id=managed_identity_client_id)
+# accessToken = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
+
+load_dotenv()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('db_name'),
-        'USER': config('db_user'),
-        'PASSWORD': config('db_password'),
-        'HOST': config('db_host'),
-        'PORT': 3306
+        'NAME': os.getenv('db_name'),
+        'USER': os.getenv('db_user_l'),
+        'PASSWORD': os.getenv('db_password_l'),
+        'HOST': os.getenv('host_l'),
+        'PORT': 3306,
+        # 'OPTIONS': {
+        #     'ssl': {'cert': './DigiCertGlobalRootCA.crt.pem'},
+        #     # Add any additional SSL options here if needed
+        # },
     }
 }
 

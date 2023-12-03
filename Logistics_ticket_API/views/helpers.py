@@ -18,13 +18,14 @@ def check_driver_fields(request):
     required_fields = ['employee_id','f_name','l_name',
                       'drivers_license_number','license_expiry_date','momo_number']
     request_fields =  request.query_params.keys()
-    for field in request_fields:
-        if field not in required_fields:
-            return [False, HttpResponse(content=f"The {field} field is not present in your request",
-                                status=400)]
+    for field in required_fields:
+        if field not in request_fields:
+            return [False, HttpResponse(content=f"The {field} field is not present in your request."
+                                                , status=400)]
         if request.query_params.get(field) == '':
-            return [False, HttpResponse(content =f"The {field} field contains an empty string.",
-                                status=400)]
+            return [False, HttpResponse(content =f"The {field} field contains an empty string."
+                                                , status=400)]
+
 
     return [True]
 

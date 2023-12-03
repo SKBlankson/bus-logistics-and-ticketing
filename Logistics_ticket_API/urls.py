@@ -21,5 +21,7 @@ from .views import driver_endpoints
 urlpatterns = [
     path('drivers/',driver_endpoints.get_driver),
     path('drivers/alldrivers', driver_endpoints.get_all_drivers),
-    path('drivers/newdriver', driver_endpoints.create_new_driver)
+    path('drivers/newdriver', driver_endpoints.create_new_driver),
+    path('drivers/updatedriver', driver_endpoints.update_driver_details),
+    path('drivers/deletedriver', driver_endpoints.delete_driver),
 ]

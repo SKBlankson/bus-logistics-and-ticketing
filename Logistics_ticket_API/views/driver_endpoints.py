@@ -20,19 +20,19 @@ def get_driver(request) -> HttpResponse | JsonResponse :
     """
     driver_id = request.query_params.get("employee_id")
 
-    # Query for specific driver by ID
-    try:
-        query = Driver.objects.get(employee__employee_id=driver_id)
-        data = {
-            'employee_id':query.employee.employee_id,
-            'driver_fname':query.employee.f_name,
-            'driver_lname':query.employee.l_name,
-            'license_id':query.drivers_license_number,
-            'license_expirey':query.license_expiry_date
-        }
-        driver_details = data
-    except:
-        return HttpResponse(content='Driver not found, Invalid ID', status = 404)
+    # Check that driver does exists
+    if helpers.check_driver_exists(request) == False:
+        return HttpResponse(content=f"The driver does not exists", status=404)
+
+    query = Driver.objects.get(employee__employee_id=driver_id)
+    data = {
+        'employee_id':query.employee.employee_id,
+        'driver_fname':query.employee.f_name,
+        'driver_lname':query.employee.l_name,
+        'license_id':query.drivers_license_number,
+        'license_expirey':query.license_expiry_date
+    }
+    driver_details = data
 
     return JsonResponse({'Drivers': driver_details}, safe=False, status= 200)
 
@@ -76,7 +76,7 @@ def create_new_driver(request) -> HttpResponse:
     if helpers.check_driver_exists(request) == True:
         return HttpResponse(content=f"The driver already exists", status=400)
 
-    # Check that driver request has all required fields and does not contain null
+    # Check that request has all required fields and does not contain null values
     validation = helpers.check_driver_fields(request)
     if validation[0] == False:
         return validation[1]
@@ -104,7 +104,7 @@ def create_new_driver(request) -> HttpResponse:
         new_driver.save()
     except Exception as e:
         print(e)
-        return HttpResponse(content="An error occured when updating the database", status=500)
+        return HttpResponse(content="An error occured when creating the record", status=500)
 
     return HttpResponse(content=f"Employee {employee_id_in} created", status=201)
 
@@ -118,16 +118,38 @@ def update_driver_details(request) -> HttpResponse:
     Should still include all driver fields
     :return: HttpResponse indicating success or failure to update resource
     """
-    employee_id = models.CharField(primary_key=True, max_length=10)
-    f_name = models.CharField(max_length=100)
-    l_name = models.CharField(max_length=100)
-    ashesi_email = models.CharField(max_length=100)
-    account_password = models.CharField(max_length=250)
-    momo_network = models.JSONField()
-    momo_number = models.CharField(max_length=10)
-    # new_ashesi_employee = AshesiEmployee(employee_id=)
 
-    # if request.
+    # Check that driver exists
+    if helpers.check_driver_exists(request) == False:
+        return HttpResponse(content=f"The driver does not exists", status=404)
+
+    # Check that driver request has all required fields and does not contain null values
+    validation = helpers.check_driver_fields(request)
+    if validation[0] == False:
+        return validation[1]
+
+    # Store request data
+    employee_id_in = request.query_params.get('employee_id')
+    f_name_in = request.query_params.get('f_name')
+    l_name_in = request.query_params.get('l_name')
+    license_number_in = request.query_params.get('drivers_license_number')
+    exp_date_in = request.query_params.get('license_expiry_date')
+    momo_number_in = request.query_params.get('momo_number')
+
+    #Get driver refrence and update all fields
+    driver = Driver.objects.get(employee__employee_id=employee_id_in)
+    driver.employee.f_name = f_name_in
+    driver.employee.l_name = l_name_in
+    driver.drivers_license_number = license_number_in
+    driver.license_expiry_date = exp_date_in
+    driver.employee.momo_number = momo_number_in
+
+    # Save
+    driver.save()
+    driver.employee.save()
+    print(driver.employee.l_name)
+
+    return HttpResponse(content='Driver details updated', status=200)
 
 
 @api_view(['DELETE'])
@@ -138,6 +160,25 @@ def delete_driver(request) -> HttpResponse:
     :param request: Request containing drivers Id
     :return: HttpResponse indicating success or failure to delete resource
     """
+
+    # Check that driver exists
+    if helpers.check_driver_exists(request) == False:
+        return HttpResponse(content=f"The driver does not exists", status=404)
+
+    driver_id = request.query_params.get('employee_id')
+
+    # Get and delete driver
+    driver = Driver.objects.get(employee__employee_id=driver_id)
+    # TODO should the driver be deleted from main employees table
+    # driver.employee.delete()
+    driver.delete()
+
+    # Check that driver no longer exists
+    if helpers.check_driver_exists(request) == False:
+        return HttpResponse(content=f"The driver has been deleted", status=200)
+    else:
+        return HttpResponse(content=f"An error occured when deleting the record",
+                            status= 500)
 
 
 
