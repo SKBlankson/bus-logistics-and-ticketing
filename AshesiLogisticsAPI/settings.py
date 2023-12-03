@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import *
+from decouple import config
 import mysql.connector
 import pyodbc
 
