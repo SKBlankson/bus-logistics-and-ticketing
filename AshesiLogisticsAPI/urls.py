@@ -1,5 +1,5 @@
 """
-URL configuration for logistics project.
+URL configuration for AshesiLogisticsAPI project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-
+# from Logistics_ticket_API import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ashesi_logistics/', include('ashesi_logistics.urls'))
+    path('', include('Logistics_ticket_API.urls')),
+    # path('Logistics_ticket_API/', include(urls))
+    # path('', include('Logistics_ticket_API.urls') )
 ]

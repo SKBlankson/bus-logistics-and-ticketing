@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AshesiLogisticsConfig(AppConfig):
+class LogisticsTicketApiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'ashesi_logistics'
+    name = 'Logistics_ticket_API'
