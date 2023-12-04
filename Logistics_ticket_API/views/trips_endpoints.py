@@ -7,16 +7,37 @@ from rest_framework.decorators import api_view
 from . import helpers
 
 
-def get_todays_trips():
+# TODO how do you get the system to automatically create tomorrows trips?
+
+@api_view(['POST'])
+def create_semester_trip(request) -> HttpResponse:
+    """
+    Creates a trip for the semester
+    :return:
+    """
     return
 
-def get_trips_in_date_range():
+def edit_semester_trip(request) -> HttpResponse:
+    """
+    Edits a specific trip on the semester schedule
+    :param request:
+    :return:
+    """
     return
 
-def edit_trip():
+def delete_semester_trip(request) -> HttpResponse:
     return
 
-def delete_trip():
+def get_todays_trips() -> JsonResponse | HttpResponse:
+    return
+
+def get_trips_in_date_range() -> JsonResponse | HttpResponse:
+    return
+
+def edit_trip(request) -> HttpResponse:
+    return
+
+def delete_trip() -> HttpResponse:
     return
 
 def book_trip():

@@ -31,7 +31,7 @@ def check_driver_fields(request):
 
 def check_driver_exists(request):
     """
-    Checks if a dri
+    Checks if a driver exists
     :param request:
     :return:
     """
@@ -42,3 +42,10 @@ def check_driver_exists(request):
         return False
 
     return True
+
+def check_vehicle_exists(request):
+    """
+    Checks if a vehicle exists in the database
+    :param request:
+    :return:
+    """
