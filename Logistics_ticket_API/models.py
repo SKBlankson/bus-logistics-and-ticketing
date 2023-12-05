@@ -12,10 +12,10 @@ class AshesiEmployee(models.Model):
     employee_id = models.CharField(primary_key=True, max_length=10)
     f_name = models.CharField(max_length=100)
     l_name = models.CharField(max_length=100)
-    ashesi_email = models.CharField(max_length=100)
-    account_password = models.CharField(max_length=250)
-    momo_network = models.JSONField()
-    momo_number = models.CharField(max_length=10)
+    ashesi_email = models.CharField(max_length=100, blank=True, null=True)
+    account_password = models.CharField(max_length=250, blank=True, null=True)
+    momo_network = models.JSONField(blank=True, null=True)
+    momo_number = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -79,7 +79,7 @@ class SemesterScheduleStop(models.Model):
 
 
 class Staff(models.Model):
-    employee_id = models.CharField(primary_key=True, max_length=10)
+    employee = models.OneToOneField(AshesiEmployee, models.DO_NOTHING, primary_key=True)
 
     class Meta:
         managed = False
@@ -130,14 +130,15 @@ class Trip(models.Model):
 
 class Vehicles(models.Model):
     license_plate = models.CharField(primary_key=True, max_length=20)
-    vehicle_type = models.JSONField()
+    vehicle_type = models.CharField(max_length=20)
     capacity = models.IntegerField()
     descriptive_name = models.CharField(max_length=100)
-    make = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-    permit_issuer = models.CharField(max_length=100)
-    permit_issue_date = models.DateField()
-    permit_expiriy_date = models.DateField()
+    make = models.CharField(max_length=100, blank=True, null=True)
+    model = models.CharField(max_length=100, blank=True, null=True)
+    permit_issuer = models.CharField(max_length=100, blank=True, null=True)
+    permit_issue_date = models.DateField(blank=True, null=True)
+    permit_expiry_date = models.DateField(blank=True, null=True)
+    assigned_driver = models.ForeignKey(AshesiEmployee, models.DO_NOTHING, db_column='assigned_driver', blank=True, null=True)
 
     class Meta:
         managed = False

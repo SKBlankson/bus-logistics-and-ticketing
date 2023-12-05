@@ -49,3 +49,35 @@ def check_vehicle_exists(request):
     :param request:
     :return:
     """
+    vehicle_id = request.query_params.get("license_plate")
+
+    try:
+        Vehicles.objects.get(license_plate=vehicle_id)
+    except:
+        return False
+
+    return True
+
+def check_vehicle_fields(request):
+    """
+    Checks a request to ensure that all the required fields and data are present
+    :param request: Request containing the drivers details
+    :return: Returns a tuple(bool,HttpResponse)
+    """
+    # Check that driver request has all required fields and does not contain null
+    required_fields = ['license_plate','vehicle_type','capacity','descriptive_name',
+                      'make','model','permit_issuer','permit_issue_date','permit_expiry_date',
+                       'employee_id']
+    request_fields = request.query_params.keys()
+
+    for field in required_fields:
+        if field not in request_fields:
+            return [False, HttpResponse(content=f"The {field} field is not present in your request."
+                                                , status=400)]
+        if request.query_params.get(field) == '':
+            return [False, HttpResponse(content =f"The {field} field contains an empty string."
+                                                , status=400)]
+
+
+
+    return [True]

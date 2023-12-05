@@ -53,3 +53,4 @@ class TripSerializer(serializers.ModelSerializer):
 class VehiclesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vehicles
+        fields = '__all__'

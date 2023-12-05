@@ -17,6 +17,7 @@ Including another URLconf
 # from django.contrib import admin
 from django.urls import path
 from .views import driver_endpoints
+from .views import fleet_endpoints
 
 urlpatterns = [
     path('drivers/',driver_endpoints.get_driver),
@@ -24,4 +25,10 @@ urlpatterns = [
     path('drivers/newdriver', driver_endpoints.create_new_driver),
     path('drivers/updatedriver', driver_endpoints.update_driver_details),
     path('drivers/deletedriver', driver_endpoints.delete_driver),
+    path('vehicles/addvehicle', fleet_endpoints.add_new_vehicle),
+    path('vehicles/editvehicle', fleet_endpoints.edit_vehicle_details),
+    path('vehicles/getallbusses', fleet_endpoints.get_all_busses),
+    path('vehicles/getallprivate', fleet_endpoints.get_all_private_cars),
+    path('vehicles/getvehicle', fleet_endpoints.get_vehicle),
+    path('vehicles/deletevehicle', fleet_endpoints.delete_vehicle)
 ]

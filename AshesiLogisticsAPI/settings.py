@@ -84,12 +84,6 @@ WSGI_APPLICATION = 'AshesiLogisticsAPI.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 
 
@@ -120,6 +114,8 @@ DATABASES = {
         'PASSWORD': os.getenv('db_password_l'),
         'HOST': os.getenv('host_l'),
         'PORT': 3306,
+
+        # 'client_flags': [mysql.connector.ClientFlag.SSL],
         # 'OPTIONS': {
         #     'ssl': {'cert': './DigiCertGlobalRootCA.crt.pem'},
         #     # Add any additional SSL options here if needed
