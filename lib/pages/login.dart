@@ -1,4 +1,5 @@
 import 'package:ashesi_bus/pages/bottom_navigation.dart';
+import 'package:ashesi_bus/requests/login_requests.dart';
 // import 'package:ashesi_bus/pages/home.dart';
 import 'package:ashesi_bus/widgets/button.dart';
 import 'package:ashesi_bus/widgets/form.dart';
@@ -53,8 +54,19 @@ class LoginState extends State<Login> {
 
             FormButton(
               text: "Login", 
-              onPressed: () {
+              onPressed: () async {
+
+                AuthProvider auth = AuthProvider();
+
+                Map<String, dynamic> response = await auth.login(
+                  emailController.text, 
+                  passwdController.text
+                );
+
+                if (!mounted) return; //build context with async stuff
+
                 Navigator.push(
+
                   context, 
                   MaterialPageRoute(builder: (context) => BottomNavigation())
                 );

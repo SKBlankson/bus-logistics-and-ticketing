@@ -6,7 +6,7 @@ class Trip{
   final String fromLocation;
   final String toLocation;
   final String stops;
-  final DateTime tripTime;
+  final String tripTime;
 
   Trip({
     required this.fromLocation,
@@ -22,21 +22,21 @@ List<Trip> trips = [
       fromLocation: 'Ashesi',
       toLocation: 'Accra',
       stops: 'Stop1, Stop2',
-      tripTime: DateTime(2023, 11, 25, 10, 0),
+      tripTime: "7:00pm",
     ),
     Trip(
       // tripID: '2',
       fromLocation: 'Accra',
       toLocation: 'Kumasi',
       stops: 'Stop3, Stop4',
-      tripTime: DateTime(2023, 11, 25, 13, 30),
+      tripTime: "8:00pm",
     ),
     Trip(
       // tripID: '3',
       fromLocation: 'Ashesi',
       toLocation: 'Takoradi',
       stops: 'Stop5, Stop6',
-      tripTime: DateTime(2023, 11, 25, 15, 0),
+      tripTime: "9:00pm",
     ),
     // Add more trips as needed
   ];

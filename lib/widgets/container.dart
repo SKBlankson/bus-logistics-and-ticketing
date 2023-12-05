@@ -6,14 +6,12 @@ class TripDetailsContainer extends StatelessWidget {
   final String fromLocation;
   final String toLocation;
   final String stops;
-  final DateTime tripTime;
-  // final String tripTime;
+  final String tripTime;
 
   TripDetailsContainer({
     required this.tripID,
     required this.fromLocation,
     required this.toLocation,
-    // required this.stops,
     this.stops = "0",
     required this.tripTime,
   });
@@ -65,9 +63,7 @@ class TripDetailsContainer extends StatelessWidget {
               color: Color(0xFF923D41),
             ),
             child: HeaderText(
-              // text: DateFormat.jm().format(tripTime),
-              text: tripTime.toString(),
-              // text: tripTime,
+              text: tripTime,
             ),
           ),
         ],

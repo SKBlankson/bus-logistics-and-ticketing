@@ -9,7 +9,8 @@ class AppFormField extends StatelessWidget{
     required this.controller,
     required this.labelledText,
     this.hintText,
-    this.obscureText = false
+    this.obscureText = false,
+    this.enabled = true
 
   });
 
@@ -17,6 +18,7 @@ class AppFormField extends StatelessWidget{
   String labelledText;
   String? hintText;
   bool obscureText;
+  bool enabled;
 
   @override
   Widget build(BuildContext context){
@@ -61,3 +63,29 @@ class TripDetailsField extends StatelessWidget{
     );
   }
 }
+
+
+// class ListViewTile extends StatelessWidget{
+
+//   ListViewTile({
+//     super.key,
+//     required this.text,
+//     required this.onTap
+//   });
+
+//   String text;
+//   Function() onTap;
+
+//   @override
+//   Widget build(BuildContext context){
+//     return ListTile(
+//       title: MainText(
+//         text: text,
+//         fontSize: 15,
+//         fontWeight: FontWeight.w600,
+//         color: Colors.black87,
+//       ),
+//       onTap: onTap,
+//     );
+//   }
+// }
