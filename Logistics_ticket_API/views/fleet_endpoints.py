@@ -5,6 +5,8 @@ from Logistics_ticket_API.serializers import *
 from django.db import connection
 from rest_framework.decorators import api_view
 from . import helpers
+from datetime import date, timedelta
+from django.db.models import Q
 
 @api_view(['POST'])
 def add_new_vehicle(request) -> HttpResponse:
@@ -158,15 +160,14 @@ def  get_all_private_cars(request) -> JsonResponse | HttpResponse:
 
     return JsonResponse({'private_list':private_vehicle_list},status=200)
 
-
-
+@api_view(['GET'])
 def get_vehicle(request) -> JsonResponse | HttpResponse:
     """
     Gets details for a specifc vehicle
     :param request: Request containing license_plate of desired vehicle
     :return: Returns a Json object containing details for a specific
     """
-    vehicle_id = request.query_params.get('license_plate')
+    vehicle_id = request.query_params.get("license_plate")
 
     # Check that the vehicle exists
     validation = Vehicles.objects.get(license_plate=vehicle_id)
@@ -175,18 +176,19 @@ def get_vehicle(request) -> JsonResponse | HttpResponse:
 
     # Get vehicle details
     vehicle_details = Vehicles.objects.get(license_plate=vehicle_id)
-    serialized_data = VehiclesSerializer(vehicle_details.data)
+    serialized_data = VehiclesSerializer(vehicle_details).data
 
     return JsonResponse({'Vehicle_data':serialized_data}, status=200)
 
-
+@api_view(['DELETE'])
 def delete_vehicle(request) -> HttpResponse:
     """
     Deletes a specified vehicle from the db
     :param request: Request containing license plate
     :return: Returns HttpResponse indicating failure or success of deletion
     """
-    vehicle_id = request.query_params.get('licesne_plate')
+    print(request)
+    vehicle_id = request.query_params.get('license_plate')
 
     # Check vehicle exists
     validation = helpers.check_vehicle_exists(request)
@@ -208,11 +210,87 @@ def delete_vehicle(request) -> HttpResponse:
 
 @api_view(['GET'])
 def get_expiring_vehicle_permits(request) -> JsonResponse | HttpResponse:
-    return
+    """
+    Returns a list of vehicles whos permits will expire within 15 days
+    :param request:
+    :return: Returns an JsonResponse with vehicle details or an HttpResponse
+    indicating some error/notice
+    """
+    present_day = date.today()
+    expiration_limit = present_day + timedelta(days=15)
+    serialized_data = {}
+
+
+    # Query to get vehicles with permits expiring 15 days from the present day
+    try:
+        vehicles_query = Vehicles.objects.filter(
+            Q(permit_expiry_date__isnull=False) &
+            Q(permit_expiry_date__gte=present_day) &  # Permit expiry date is on or after today
+            Q(permit_expiry_date__lte=expiration_limit)  # Permit expiry date is 15 days from today or earlier
+        )
+    except:
+        HttpResponse(content='An error occured when querying the database', status=500)
+
+    # List of vehicles with permits expiring 15 days from the present day
+    expiring_permits = list(vehicles_query)
+    if len(expiring_permits) == 0:
+        return  HttpResponse(content='No vehicle permits expire in the next 15 days', status=200)
+        # TODO look into a different status code
+
+
+    for vehicle in expiring_permits:
+        expiry_date = vehicle.permit_expiry_date
+        license_plate = vehicle.license_plate
+        delta = expiry_date - present_day
+        vehicle_type = vehicle.vehicle_type
+        formatted_message = f"The {vehicle_type} with license plate {license_plate} expires " \
+                            f"on {expiry_date} - {delta.days} Day(s)"
+        serialized_data[license_plate] = formatted_message
+
+    return JsonResponse({'Expiring_permits':serialized_data}, status=200)
 
 
 @api_view(['GET'])
-def get_expiring_drivers_licenses() -> JsonResponse | HttpResponse:
-    return
+def get_expiring_drivers_licenses(request) -> JsonResponse | HttpResponse:
+    """
+     Returns a list of drivers whos license will expire within 15 days
+     :param request:
+     :return: Returns an JsonResponse with driver details or an HttpResponse
+     indicating some error/notice
+     """
+    present_day = date.today()
+    expiration_limit = present_day + timedelta(days=15)
+    serialized_data = {}
+
+    # Query to get vehicles with permits expiring 15 days from the present day
+    try:
+        driver_query = Driver.objects.filter(
+            Q(license_expiry_date__isnull=False) &
+            Q(license_expiry_date__gte=present_day) &  # license expiry date is on or after today
+            Q(license_expiry_date__lte=expiration_limit)  # Permit expiry date is 15 days from today or earlier
+        )
+    except:
+        HttpResponse(content='An error occured when querying the database', status=500)
+
+    # List of drivers with licenses expiring 15 days from the present day
+    expiring_license = list(driver_query)
+    if len(expiring_license) == 0:
+        return HttpResponse(content='No drivers license expire in the next 15 days', status=200)
+        # TODO look into a different status code
+
+    for driver in expiring_license:
+        expiry_date = driver.license_expiry_date
+        license_number = driver.drivers_license_number
+        f_name = driver.employee.f_name
+        l_name = driver.employee.l_name
+        delta = expiry_date - present_day
+
+        formatted_message = f"{f_name} {l_name}'s drivers license expires " \
+                            f"on {expiry_date} - {delta.days} Day(s). " \
+                            f"license number - {license_number}"
+        serialized_data[license_number] = formatted_message
+
+    return JsonResponse({'Expiring_license': serialized_data}, status=200)
+
 
 

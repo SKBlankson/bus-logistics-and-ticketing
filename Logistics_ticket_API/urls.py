@@ -30,5 +30,7 @@ urlpatterns = [
     path('vehicles/getallbusses', fleet_endpoints.get_all_busses),
     path('vehicles/getallprivate', fleet_endpoints.get_all_private_cars),
     path('vehicles/getvehicle', fleet_endpoints.get_vehicle),
-    path('vehicles/deletevehicle', fleet_endpoints.delete_vehicle)
+    path('vehicles/deletevehicle', fleet_endpoints.delete_vehicle),
+    path('vehicles/expiringpermits',fleet_endpoints.get_expiring_vehicle_permits),
+    path('vehicles/expiringdrivers', fleet_endpoints.get_expiring_drivers_licenses)
 ]

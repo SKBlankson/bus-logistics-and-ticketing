@@ -109,6 +109,7 @@ def create_new_driver(request) -> HttpResponse:
     return HttpResponse(content=f"Employee {employee_id_in} created", status=201)
 
 
+
 @api_view(['PUT'])
 def update_driver_details(request) -> HttpResponse:
     """

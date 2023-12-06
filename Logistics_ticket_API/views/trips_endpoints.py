@@ -15,6 +15,7 @@ def create_semester_trip(request) -> HttpResponse:
     Creates a trip for the semester
     :return:
     """
+
     return
 
 def edit_semester_trip(request) -> HttpResponse:
