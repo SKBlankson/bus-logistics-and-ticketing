@@ -33,7 +33,9 @@ SECRET_KEY = os.getenv('secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+'ashesilogisticsticketingapi.azurewebsites.net'
+]
 
 
 # Application definition
