@@ -81,3 +81,18 @@ def check_vehicle_fields(request):
 
 
     return [True]
+
+def check_stop_in_db(request : str):
+    """
+    Checks if a stop is in the database
+    :param request:
+    :return:
+    """
+
+    try:
+        query = Stops.objects.filter(stop_name=request)
+
+    except:
+        return False
+
+    return True

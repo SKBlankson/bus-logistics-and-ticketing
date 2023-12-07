@@ -60,6 +60,8 @@ class SemesterSchedule(models.Model):
     final_destination = models.ForeignKey('Stops', models.DO_NOTHING, db_column='final_destination', related_name='semesterschedule_final_destination_set')
     departure_time = models.TimeField()
     arrival_time = models.TimeField()
+    assigned_driver = models.ForeignKey(Driver, models.DO_NOTHING, db_column='assigned_driver', blank=True, null=True)
+    assigned_vehicle = models.ForeignKey('Vehicles', models.DO_NOTHING, db_column='assigned_vehicle', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -130,7 +132,7 @@ class Trip(models.Model):
 
 class Vehicles(models.Model):
     license_plate = models.CharField(primary_key=True, max_length=20)
-    vehicle_type = models.CharField(max_length=20)
+    vehicle_type = models.JSONField()
     capacity = models.IntegerField()
     descriptive_name = models.CharField(max_length=100)
     make = models.CharField(max_length=100, blank=True, null=True)
@@ -139,6 +141,9 @@ class Vehicles(models.Model):
     permit_issue_date = models.DateField(blank=True, null=True)
     permit_expiry_date = models.DateField(blank=True, null=True)
     assigned_driver = models.ForeignKey(AshesiEmployee, models.DO_NOTHING, db_column='assigned_driver', blank=True, null=True)
+    last_maintenance_date = models.DateField(blank=True, null=True)
+    maintenance_cycle_days = models.IntegerField(blank=True, null=True)
+    next_maintenance_date = models.DateField(blank=True, null=True)
 
     class Meta:
         managed = False

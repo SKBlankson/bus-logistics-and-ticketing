@@ -117,16 +117,16 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('db_name'),
-        'USER': os.getenv('db_user_l'),
-        'PASSWORD': os.getenv('db_password_l'),
-        'HOST': os.getenv('host_l'),
+        'USER': os.getenv('db_user'),
+        'PASSWORD': os.getenv('db_password'),
+        'HOST': os.getenv('host'),
         'PORT': 3306,
 
         # 'client_flags': [mysql.connector.ClientFlag.SSL],
-        # 'OPTIONS': {
-        #     'ssl': {'cert': './DigiCertGlobalRootCA.crt.pem'},
-        #     # Add any additional SSL options here if needed
-        # },
+        'OPTIONS': {
+            'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
+            # Add any additional SSL options here if needed
+        },
     }
 }
 
