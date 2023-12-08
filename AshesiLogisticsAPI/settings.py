@@ -17,7 +17,9 @@ import mysql.connector
 import pyodbc
 from azure.identity import ManagedIdentityCredential, ClientSecretCredential
 from dotenv import load_dotenv
-
+from azure.keyvault.secrets import SecretClient
+from azure.identity import DefaultAzureCredential
+from django.core.management.utils import get_random_secret_key
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +31,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('secret_key')
-print("hii " ,SECRET_KEY)
+
+print()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -97,20 +100,9 @@ WSGI_APPLICATION = 'AshesiLogisticsAPI.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': config('db_name'),
-#         'USER': config('db_user'),
-#         'PASSWORD': config('db_password'),
-#         'HOST': config('host'),
-#         'PORT':'3306',
-#         'ssl_ca': '../DigiCertGlobalRootCA.crt.pem',
-#     }
-# }
-#
+# VAULT_URL = os.environ["VAULT_URL"]
+# credential = DefaultAzureCredential()
+# client = SecretClient(vault_url=VAULT_URL, credential=credential)
 
 
 # managed_identity_client_id = os.getenv('AZURE_MYSQL_CLIENTID')
