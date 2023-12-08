@@ -27,7 +27,7 @@ def create_semester_trip(request) -> HttpResponse:
         return HttpResponse(content='The assigned vehicle does not exist', status=400)
 
     # Get request fields
-    day_of_week = request.query_params.get('day_of_week')
+    title = request.query_params.get('title')
     pickup_location = request.query_params.get('pickup_location').upper()
     departure_time = request.query_params.get('departure_time')
     final_destination = request.query_params.get('final_destination')
@@ -35,6 +35,8 @@ def create_semester_trip(request) -> HttpResponse:
     assigned_bus = request.query_params.get('assigned_bus')
     assigned_driver = request.query_params.get('assigned_driver')
     stops = request.query_params.get('stops')
+    time_period = request.query_params.get('time_period')
+
     start_end_stops = []
 
 
@@ -68,13 +70,14 @@ def create_semester_trip(request) -> HttpResponse:
 
     # Create and save new semester  schedule object
     new_sem_trip = SemesterSchedule(
-        day_of_week = day_of_week,
+        title = title,
         pickup_location = pickup_location,
         departure_time = departure_time,
         final_destination = final_destination,
         arrival_time = arrival_time,
         assigned_driver = driver_ref,
-        assigned_bus = bus_ref
+        assigned_bus = bus_ref,
+        time_period = time_period
     )
     new_sem_trip.save()
 

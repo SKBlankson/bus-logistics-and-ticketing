@@ -18,6 +18,7 @@ Including another URLconf
 from django.urls import path
 from .views import driver_endpoints
 from .views import fleet_endpoints
+from .views import trips_endpoints
 
 urlpatterns = [
     path('drivers/',driver_endpoints.get_driver),
@@ -32,5 +33,6 @@ urlpatterns = [
     path('vehicles/getvehicle', fleet_endpoints.get_vehicle),
     path('vehicles/deletevehicle', fleet_endpoints.delete_vehicle),
     path('vehicles/expiringpermits',fleet_endpoints.get_expiring_vehicle_permits),
-    path('vehicles/expiringdrivers', fleet_endpoints.get_expiring_drivers_licenses)
+    path('vehicles/expiringdrivers', fleet_endpoints.get_expiring_drivers_licenses),
+    path('trips/createsemestertrip', trips_endpoints.create_semester_trip)
 ]
