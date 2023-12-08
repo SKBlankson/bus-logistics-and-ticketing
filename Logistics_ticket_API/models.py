@@ -132,7 +132,7 @@ class Trip(models.Model):
 
 class Vehicles(models.Model):
     license_plate = models.CharField(primary_key=True, max_length=20)
-    vehicle_type = models.JSONField()
+    vehicle_type = models.CharField(max_length=15, blank=True, null=True)
     capacity = models.IntegerField()
     descriptive_name = models.CharField(max_length=100)
     make = models.CharField(max_length=100, blank=True, null=True)

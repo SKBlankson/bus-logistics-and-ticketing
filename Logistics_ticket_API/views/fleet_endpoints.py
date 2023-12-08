@@ -43,6 +43,9 @@ def add_new_vehicle(request) -> HttpResponse:
     permit_expiry_date_in = request.query_params.get('permit_expiry_date')
     assigned_driver_in = request.query_params.get('employee_id')
     driver_ref = AshesiEmployee.objects.get(employee_id=assigned_driver_in)
+    last_maintained = request.query_params.get('last_maintenance_date')
+    next_maintenance = request.query_params.get('next_maintenance_date')
+
 
     # Create new vehicle
     new_vehicle = Vehicles(license_plate = license_plate_in,
@@ -54,13 +57,15 @@ def add_new_vehicle(request) -> HttpResponse:
                            permit_issuer = permit_issuer_in,
                            permit_issue_date = permit_issue_date_in,
                            permit_expiry_date = permit_expiry_date_in,
-                           assigned_driver = driver_ref
+                           assigned_driver = driver_ref,
+                           last_maintenance_date = last_maintained,
+                           next_maintenance_date = next_maintenance
                            )
     new_vehicle.save()
 
     # Check if vehicle exists
     if helpers.check_vehicle_exists(request) == True:
-        return HttpResponse(content='The vehice has been created', status = 200)
+        return HttpResponse(content='The vehicle has been created', status = 200)
     else:
         return HttpResponse(content='An error occured when creating the entry',
                             status = 500)
@@ -170,7 +175,7 @@ def get_vehicle(request) -> JsonResponse | HttpResponse:
     vehicle_id = request.query_params.get("license_plate")
 
     # Check that the vehicle exists
-    validation = Vehicles.objects.get(license_plate=vehicle_id)
+    validation = helpers.check_vehicle_exists(request)
     if validation == False:
         return HttpResponse(content='Vehicle does not exist', status=400)
 

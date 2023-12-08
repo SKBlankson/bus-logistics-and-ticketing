@@ -34,9 +34,9 @@ print("hii " ,SECRET_KEY)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-'ashesilogisticsticketingapi.azurewebsites.net'
-]
+# ALLOWED_HOSTS = [
+# 'ashesilogisticsticketingapi.azurewebsites.net'
+# ]
 
 
 # Application definition
@@ -122,16 +122,16 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('db_name'),
-        'USER': os.getenv('db_user'),
-        'PASSWORD': os.getenv('db_password'),
-        'HOST': os.getenv('host'),
+        'USER': os.getenv('db_user_l'),
+        'PASSWORD': os.getenv('db_password_l'),
+        'HOST': os.getenv('host_l'),
         'PORT': 3306,
 
         # 'client_flags': [mysql.connector.ClientFlag.SSL],
-        'OPTIONS': {
-            'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
-            # Add any additional SSL options here if needed
-        },
+        # 'OPTIONS': {
+        #     'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
+        #     # Add any additional SSL options here if needed
+        # },
     }
 }
 
