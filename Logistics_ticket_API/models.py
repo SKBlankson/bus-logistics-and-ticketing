@@ -56,21 +56,22 @@ class PrivateTrip(models.Model):
 
 class SemesterSchedule(models.Model):
     schedule_id = models.AutoField(primary_key=True)
-    day_of_week = models.JSONField()
+    title = models.CharField(max_length=200)
     pickup_location = models.ForeignKey('Stops', models.DO_NOTHING, db_column='pickup_location')
     final_destination = models.ForeignKey('Stops', models.DO_NOTHING, db_column='final_destination', related_name='semesterschedule_final_destination_set')
     departure_time = models.TimeField()
     arrival_time = models.TimeField()
     assigned_driver = models.ForeignKey(Driver, models.DO_NOTHING, db_column='assigned_driver', blank=True, null=True)
     assigned_vehicle = models.ForeignKey('Vehicles', models.DO_NOTHING, db_column='assigned_vehicle', blank=True, null=True)
-
+    time_period = models.CharField(max_length=7)
     class Meta:
         managed = False
         db_table = 'semester_schedule'
 
 
 class SemesterScheduleStop(models.Model):
-    schedule = models.OneToOneField(SemesterSchedule, models.DO_NOTHING, primary_key=True)  # The composite primary key (schedule_id, stop_id) found, that is not supported. The first column is selected.
+    sem_schedule_stop_id = models.AutoField(primary_key=True)
+    schedule = models.OneToOneField(SemesterSchedule, models.DO_NOTHING)  # The composite primary key (schedule_id, stop_id) found, that is not supported. The first column is selected.
     stop = models.ForeignKey('Stops', models.DO_NOTHING)
     departure_time = models.TimeField(blank=True, null=True)
     arrival_time = models.TimeField()
@@ -78,7 +79,7 @@ class SemesterScheduleStop(models.Model):
     class Meta:
         managed = False
         db_table = 'semester_schedule_stop'
-        unique_together = (('schedule', 'stop'),)
+        # unique_together = (('schedule', 'stop'),)
 
 
 class Staff(models.Model):

@@ -55,12 +55,21 @@ def check_driver_exists(request, driverId = None):
 
     return True
 
-def check_vehicle_exists(request):
+def check_vehicle_exists(request, licenseplate = None):
     """
     Checks if a vehicle exists in the database
     :param request:
     :return:
     """
+    # Check by licnese plate first
+    if licenseplate != None:
+        try:
+            Vehicles.objects.get(license_plate=licenseplate)
+        except:
+            return False
+
+        return True
+
     vehicle_id = request.query_params.get("license_plate")
 
     try:
@@ -94,7 +103,7 @@ def check_vehicle_fields(request):
 
     return [True]
 
-def check_stop_in_db(request : str):
+def check_stop_in_db(stop_name : str):
     """
     Checks if a stop is in the database
     :param request:
@@ -102,9 +111,17 @@ def check_stop_in_db(request : str):
     """
 
     try:
-        query = Stops.objects.filter(stop_name=request)
+        query = Stops.objects.filter(stop_name=stop_name)
+
+        if query.exists():
+            return True
+        else:
+            return False
 
     except:
         return False
 
-    return True
+def create_weekly_trips():
+    return
+
+
