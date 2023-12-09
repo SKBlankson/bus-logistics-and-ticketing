@@ -26,6 +26,7 @@ class Driver(models.Model):
     employee = models.OneToOneField(AshesiEmployee, models.DO_NOTHING, primary_key=True)
     drivers_license_number = models.CharField(max_length=20)
     license_expiry_date = models.DateField()
+    address = models.CharField(max_length=100)
 
     class Meta:
         managed = False

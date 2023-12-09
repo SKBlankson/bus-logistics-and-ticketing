@@ -25,41 +25,77 @@ def get_driver(request) -> HttpResponse | JsonResponse :
         return HttpResponse(content=f"The driver does not exists", status=404)
 
     query = Driver.objects.get(employee__employee_id=driver_id)
+    assignedVehicles_query = Vehicles.objects.filter(assigned_driver=driver_id)
+
+    # Create a list to hold assigned vehicles
+    assigned_vehicles = []
+
+    # Append assigned vehicles to the list
+    for vehicle in assignedVehicles_query:
+        assigned_vehicles.append({
+            "license_plate": vehicle.license_plate,
+            "vehicle_type": vehicle.vehicle_type,
+            "descriptive_name": vehicle.descriptive_name
+        })
+
     data = {
         'employee_id':query.employee.employee_id,
         'driver_fname':query.employee.f_name,
         'driver_lname':query.employee.l_name,
         'license_id':query.drivers_license_number,
-        'license_expirey':query.license_expiry_date
+        'license_expirey':query.license_expiry_date,
+        'address':query.address,
+        'assigned_vehicles':assigned_vehicles
     }
     driver_details = data
+
+
 
     return JsonResponse({'Drivers': driver_details}, safe=False, status= 200)
 
 
 @api_view(['GET'])
 def get_all_drivers(request) -> HttpResponse | JsonResponse :
-    """Returns details for all registered drivers if employee_id field = 'all'
+    """Returns details for all registered drivers
 
     :param request: Request object
     :return: HttpResponse or JsonResponse object
     """
     driver_list = []
 
-    if request.query_params.get("employee_id") == 'all':
-        try:
-            query = Driver.objects.all()
-            for driver in query:
-                data = {
-                    'employee_id': driver.employee.employee_id,
-                    'driver_fname': driver.employee.f_name,
-                    'driver_lname': driver.employee.l_name,
-                    'license_id': driver.drivers_license_number,
-                    'license_expirey': driver.license_expiry_date
-                }
-                driver_list.append(data)
-        except:
-            return HttpResponse(content='An error occurred on the server', status=500)
+
+    try:
+        query = Driver.objects.all()
+
+        # Create a list to hold assigned vehicles
+
+
+        for driver in query:
+            assignedVehicles_query = Vehicles.objects.filter(assigned_driver=driver.employee.employee_id)
+            assigned_vehicles = []
+
+            # Append assigned vehicles to the list
+            for vehicle in assignedVehicles_query:
+                assigned_vehicles.append({
+                    "license_plate": vehicle.license_plate,
+                    "vehicle_type": vehicle.vehicle_type,
+                    "descriptive_name": vehicle.descriptive_name
+                })
+
+            data = {
+                'employee_id': driver.employee.employee_id,
+                'driver_fname': driver.employee.f_name,
+                'driver_lname': driver.employee.l_name,
+                'license_id': driver.drivers_license_number,
+                'license_expirey': driver.license_expiry_date,
+                'address': driver.address,
+                'assigned_vehicles': assigned_vehicles
+            }
+            driver_list.append(data)
+    except Exception as e:
+        print(e)
+        return HttpResponse(content='An error occurred on the server', status=500)
+
 
     return JsonResponse({'Drivers': driver_list}, status=200)
 
@@ -83,24 +119,27 @@ def create_new_driver(request) -> HttpResponse:
 
     # Store request data
     employee_id_in = request.query_params.get('employee_id')
-    f_name_in = request.query_params.get('f_name')
-    l_name_in = request.query_params.get('l_name')
-    license_number_in = request.query_params.get('drivers_license_number')
-    exp_date_in = request.query_params.get('license_expiry_date')
-    momo_number_in = request.query_params.get('momo_number')
+    f_name_in = request.data.get('f_name')
+    l_name_in = request.data.get('l_name')
+    license_number_in = request.data.get('drivers_license_number')
+    exp_date_in = request.data.get('license_expiry_date')
+    momo_number_in = request.data.get('momo_number')
+    address_in = request.data.get('address')
 
     try:
         # Create entry in AshesiEmployee table
         new_employee = AshesiEmployee(employee_id = employee_id_in,
                                       f_name = f_name_in,
                                       l_name = l_name_in,
-                                      momo_number = momo_number_in)
+                                      momo_number = momo_number_in
+                                      )
         new_employee.save()
 
         # Create entry in Drivers table
         new_driver = Driver(employee = new_employee,
                             drivers_license_number = license_number_in,
-                            license_expiry_date = exp_date_in)
+                            license_expiry_date = exp_date_in,
+                            address = address_in)
         new_driver.save()
     except Exception as e:
         print(e)
@@ -110,7 +149,7 @@ def create_new_driver(request) -> HttpResponse:
 
 
 
-@api_view(['PUT'])
+@api_view(['PATCH'])
 def update_driver_details(request) -> HttpResponse:
     """
     Updates the details for an existing driver
@@ -131,24 +170,31 @@ def update_driver_details(request) -> HttpResponse:
 
     # Store request data
     employee_id_in = request.query_params.get('employee_id')
-    f_name_in = request.query_params.get('f_name')
-    l_name_in = request.query_params.get('l_name')
-    license_number_in = request.query_params.get('drivers_license_number')
-    exp_date_in = request.query_params.get('license_expiry_date')
-    momo_number_in = request.query_params.get('momo_number')
+    f_name_in = request.data.get('f_name')
+    l_name_in = request.data.get('l_name')
+    license_number_in = request.data.get('drivers_license_number')
+    exp_date_in = request.data.get('license_expiry_date')
+    momo_number_in = request.data.get('momo_number')
+    address_in = request.data.get('address')
 
-    #Get driver refrence and update all fields
-    driver = Driver.objects.get(employee__employee_id=employee_id_in)
-    driver.employee.f_name = f_name_in
-    driver.employee.l_name = l_name_in
-    driver.drivers_license_number = license_number_in
-    driver.license_expiry_date = exp_date_in
-    driver.employee.momo_number = momo_number_in
+    try:
+        #Get driver refrence and update all fields
+        driver = Driver.objects.get(employee__employee_id=employee_id_in)
+        driver.employee.f_name = f_name_in
+        driver.employee.l_name = l_name_in
+        driver.drivers_license_number = license_number_in
+        driver.license_expiry_date = exp_date_in
+        driver.address = address_in
+        driver.employee.momo_number = momo_number_in
 
-    # Save
-    driver.save()
-    driver.employee.save()
-    print(driver.employee.l_name)
+        # Save
+        driver.employee.save()
+        driver.save()
+        print(driver.employee.l_name)
+    except:
+        return HttpResponse(content="An error occured when updating the data",
+                            status=500)
+
 
     return HttpResponse(content='Driver details updated', status=200)
 
@@ -168,11 +214,16 @@ def delete_driver(request) -> HttpResponse:
 
     driver_id = request.query_params.get('employee_id')
 
-    # Get and delete driver
+    # Get and delete driver from driver table
     driver = Driver.objects.get(employee__employee_id=driver_id)
-    # TODO should the driver be deleted from main employees table
-    # driver.employee.delete()
     driver.delete()
+
+    # Get and delete driver from driver table
+    driver = AshesiEmployee.objects.get(employee_id=driver_id)
+    driver.delete()
+
+
+
 
     # Check that driver no longer exists
     if helpers.check_driver_exists(request) == False:

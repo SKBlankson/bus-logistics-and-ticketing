@@ -16,6 +16,8 @@ def add_new_vehicle(request) -> HttpResponse:
     :return: Returns an HttpResponse indicating success or failure of resource
     creation
     """
+    # Get driver ID
+    assigned_driver_in = request.data.get('employee_id')
 
     # Check vehicle does not exist
     if helpers.check_vehicle_exists(request) == True:
@@ -27,24 +29,23 @@ def add_new_vehicle(request) -> HttpResponse:
         return validation[1]
 
     # Check that assigned driver exists
-    validation = helpers.check_driver_exists(request)
+    validation = helpers.check_driver_exists(request,assigned_driver_in)
     if validation == False:
         return HttpResponse(content='Driver does not exist',status=400)
 
     # Get vehicle details
     license_plate_in = request.query_params.get('license_plate')
-    vehicle_type_in = request.query_params.get('vehicle_type')
-    capacity_in = request.query_params.get('capacity')
-    descriptive_name_in = request.query_params.get('descriptive_name')
-    make_in = request.query_params.get('make')
-    model_in = request.query_params.get('model')
-    permit_issuer_in = request.query_params.get('permit_issuer')
-    permit_issue_date_in = request.query_params.get('permit_issue_date')
-    permit_expiry_date_in = request.query_params.get('permit_expiry_date')
-    assigned_driver_in = request.query_params.get('employee_id')
+    vehicle_type_in = request.data.get('vehicle_type')
+    capacity_in = request.data.get('capacity')
+    descriptive_name_in = request.data.get('descriptive_name')
+    make_in = request.data.get('make')
+    model_in = request.data.get('model')
+    permit_issuer_in = request.data.get('permit_issuer')
+    permit_issue_date_in = request.data.get('permit_issue_date')
+    permit_expiry_date_in = request.data.get('permit_expiry_date')
     driver_ref = AshesiEmployee.objects.get(employee_id=assigned_driver_in)
-    last_maintained = request.query_params.get('last_maintenance_date')
-    next_maintenance = request.query_params.get('next_maintenance_date')
+    last_maintained = request.data.get('last_maintenance_date')
+    next_maintenance = request.data.get('next_maintenance_date')
 
 
     # Create new vehicle
@@ -67,7 +68,7 @@ def add_new_vehicle(request) -> HttpResponse:
     if helpers.check_vehicle_exists(request) == True:
         return HttpResponse(content='The vehicle has been created', status = 200)
     else:
-        return HttpResponse(content='An error occured when creating the entry',
+        return HttpResponse(content='An error occurred when creating the entry',
                             status = 500)
 
 @api_view(['PATCH'])
@@ -77,6 +78,9 @@ def edit_vehicle_details(request) -> HttpResponse:
     :param request: Request containing vehicle details
     :return: Returns an HttpResponse indicating success or failure to edit the details
     """
+
+    # Get driver ID
+    assigned_driver_in = request.data.get('employee_id')
 
     # Check vehicle exists
     if helpers.check_vehicle_exists(request) == False:
@@ -88,22 +92,22 @@ def edit_vehicle_details(request) -> HttpResponse:
         return validation[1]
 
     # Check that assigned driver exists
-    validation = helpers.check_driver_exists(request)
+    validation = helpers.check_driver_exists(request, assigned_driver_in)
     if validation == False:
         return HttpResponse(content='Driver does not exist', status=400)
 
     # TODO implement to allow license plate changes
     # Get vehicle details
     license_plate_in = request.query_params.get('license_plate')
-    vehicle_type_in = request.query_params.get('vehicle_type')
-    capacity_in = request.query_params.get('capacity')
-    descriptive_name_in = request.query_params.get('descriptive_name')
-    make_in = request.query_params.get('make')
-    model_in = request.query_params.get('model')
-    permit_issuer_in = request.query_params.get('permit_issuer')
-    permit_issue_date_in = request.query_params.get('permit_issue_date')
-    permit_expiry_date_in = request.query_params.get('permit_expiry_date')
-    assigned_driver_in = request.query_params.get('employee_id')
+    vehicle_type_in = request.data.get('vehicle_type')
+    capacity_in = request.data.get('capacity')
+    descriptive_name_in = request.data.get('descriptive_name')
+    make_in = request.data.get('make')
+    model_in = request.data.get('model')
+    permit_issuer_in = request.data.get('permit_issuer')
+    permit_issue_date_in = request.data.get('permit_issue_date')
+    permit_expiry_date_in = request.data.get('permit_expiry_date')
+    assigned_driver_in = request.data.get('employee_id')
     driver_ref = AshesiEmployee.objects.get(employee_id=assigned_driver_in)
 
     # Get vehicle reference and update values

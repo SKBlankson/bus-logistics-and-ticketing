@@ -15,9 +15,9 @@ def check_driver_fields(request):
     :return: Returns a tuple(bool,HttpResponse)
     """
     # Check that driver request has all required fields and does not contain null
-    required_fields = ['employee_id','f_name','l_name',
-                      'drivers_license_number','license_expiry_date','momo_number']
-    request_fields =  request.query_params.keys()
+    required_fields = ['f_name','l_name',
+                      'drivers_license_number','license_expiry_date','momo_number','address']
+    request_fields =  request.data.keys()
     for field in required_fields:
         if field not in request_fields:
             return [False, HttpResponse(content=f"The {field} field is not present in your request."
@@ -29,12 +29,24 @@ def check_driver_fields(request):
 
     return [True]
 
-def check_driver_exists(request):
+
+
+def check_driver_exists(request, driverId = None):
     """
     Checks if a driver exists
     :param request:
     :return:
     """
+    # Check by ID first
+    if driverId != None:
+        try:
+            Driver.objects.get(employee__employee_id=driverId)
+        except:
+            return False
+
+        return True
+
+
     driver_id = request.query_params.get("employee_id")
     try:
        Driver.objects.get(employee__employee_id=driver_id)
@@ -65,16 +77,16 @@ def check_vehicle_fields(request):
     :return: Returns a tuple(bool,HttpResponse)
     """
     # Check that driver request has all required fields and does not contain null
-    required_fields = ['license_plate','vehicle_type','capacity','descriptive_name',
+    required_fields = ['vehicle_type','capacity','descriptive_name',
                       'make','model','permit_issuer','permit_issue_date','permit_expiry_date',
                        'employee_id']
-    request_fields = request.query_params.keys()
+    request_fields = request.data.keys()
 
     for field in required_fields:
         if field not in request_fields:
             return [False, HttpResponse(content=f"The {field} field is not present in your request."
                                                 , status=400)]
-        if request.query_params.get(field) == '':
+        if request.data.get(field) is None:
             return [False, HttpResponse(content =f"The {field} field contains an empty string."
                                                 , status=400)]
 

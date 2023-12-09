@@ -38,7 +38,8 @@ print()
 DEBUG = True
 
 ALLOWED_HOSTS = [
-'ashesilogisticsticketingapi.azurewebsites.net'
+'ashesilogisticsticketingapi.azurewebsites.net',
+'127.0.0.1'
 ]
 
 
