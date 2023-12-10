@@ -6,6 +6,7 @@ from Logistics_ticket_API.serializers import *
 from django.db import connection
 from rest_framework.decorators import api_view
 from . import helpers
+from datetime import *
 
 
 def check_driver_fields(request):
@@ -46,7 +47,7 @@ def check_driver_exists(request, driverId = None):
 
         return True
 
-
+    # Check via request objt cdrgh
     driver_id = request.query_params.get("employee_id")
     try:
        Driver.objects.get(employee__employee_id=driver_id)
@@ -121,7 +122,39 @@ def check_stop_in_db(stop_name : str):
     except:
         return False
 
-def create_weekly_trips():
+def create_daily_trips():
+    """
+    Creates the daily trips for the semester excluding weekends
+    :return:
+    """
+    # Create the trips for today
+    current_date = datetime.now().date()
+    semester_schedule = SemesterSchedule.objects.all()
+    count=0
+
+    for trip in semester_schedule:
+        new_trip = Trip(
+            trip_id = str(trip.start_date) + str(count),
+            schedule= trip,
+            trip_date=current_date,
+            assigned_driver=trip.assigned_driver,
+            assigned_vehicle=trip.assigned_vehicle
+        )
+        new_trip.save()
+
     return
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

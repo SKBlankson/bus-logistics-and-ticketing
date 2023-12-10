@@ -64,13 +64,15 @@ class SemesterSchedule(models.Model):
     assigned_driver = models.ForeignKey(Driver, models.DO_NOTHING, db_column='assigned_driver', blank=True, null=True)
     assigned_vehicle = models.ForeignKey('Vehicles', models.DO_NOTHING, db_column='assigned_vehicle', blank=True, null=True)
     time_period = models.CharField(max_length=7)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
     class Meta:
         managed = False
         db_table = 'semester_schedule'
 
 
 class SemesterScheduleStop(models.Model):
-    sem_schedule_stop_id = models.AutoField(primary_key=True)
+    sem_sched_stop_id = models.AutoField(primary_key=True)
     schedule = models.OneToOneField(SemesterSchedule, models.DO_NOTHING)  # The composite primary key (schedule_id, stop_id) found, that is not supported. The first column is selected.
     stop = models.ForeignKey('Stops', models.DO_NOTHING)
     departure_time = models.TimeField(blank=True, null=True)
@@ -121,9 +123,9 @@ class Ticket(models.Model):
 
 
 class Trip(models.Model):
-    trip_id = models.CharField(primary_key=True, max_length=10)
+    trip_id = models.CharField(primary_key=True, max_length=15)
     schedule = models.ForeignKey(SemesterSchedule, models.DO_NOTHING)
-    trip_date = models.DateTimeField()
+    trip_date = models.DateField()
     assigned_driver = models.ForeignKey(Driver, models.DO_NOTHING, db_column='assigned_driver')
     assigned_vehicle = models.ForeignKey('Vehicles', models.DO_NOTHING, db_column='assigned_vehicle')
 

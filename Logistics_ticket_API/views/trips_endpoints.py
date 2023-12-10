@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from django.shortcuts import render
@@ -7,6 +8,8 @@ from Logistics_ticket_API.serializers import *
 from django.db import connection
 from rest_framework.decorators import api_view
 from . import helpers
+from datetime import *
+# import asyncio
 
 
 # TODO how do you get the system to automatically create tomorrows trips?
@@ -48,6 +51,8 @@ def create_semester_trip(request) -> HttpResponse:
     stops = trip_data.get('stops')
     time_period = trip_data.get('time_period').upper()
     full_cost = trip_data.get('full_trip_cost')
+    start_date = trip_data.get('start_date')
+    end_date = trip_data.get('end_date')
 
     #### Put stops and destinations in the database ####
     start_end_stops = []
@@ -95,7 +100,9 @@ def create_semester_trip(request) -> HttpResponse:
         arrival_time = arrival_time,
         assigned_driver = driver_ref,
         assigned_vehicle = bus_ref,
-        time_period = time_period
+        time_period = time_period,
+        start_date = start_date,
+        end_date = end_date
     )
     new_sem_trip.save()
 
@@ -122,6 +129,8 @@ def create_semester_trip(request) -> HttpResponse:
     except Exception as e:
         print(e)
 
+    # TODO remember to create a trigger event for this
+    # helpers.create_daily_trips()
 
     return HttpResponse(content = "Schedule created", status =200)
 
@@ -138,13 +147,62 @@ def edit_semester_trip(request) -> HttpResponse:
 def delete_semester_trip(request) -> HttpResponse:
     return
 
+@api_view(['GET'])
 def get_todays_trips(request) -> JsonResponse | HttpResponse:
     """
     Gets the available trips for the current date
-    :param request: 
-    :return: 
+    :param request:
+    :return:
     """
-    
+    trips = []
+    current_date = str(datetime.now().date())
+    # if current_date.weekday() == 5 or current_date.weekday() == 6:
+    #     return
+
+    # Query for today's trips
+    todays_trips = Trip.objects.filter(trip_date=current_date)
+    for trip in todays_trips:
+        # Get bus and driver details
+        driver_name = f"{str(trip.assigned_driver.employee.f_name)} " \
+                      f"{str(trip.assigned_driver.employee.l_name)}"
+        license_plate = trip.assigned_vehicle.license_plate
+        bus_description = trip.assigned_vehicle.descriptive_name
+
+        # Get stops and cost
+        starting_location = str(trip.schedule.pickup_location.stop_name)
+        final_destination = str(trip.schedule.final_destination.stop_name)
+        schedule_id = str(trip.schedule.schedule_id)
+        print(schedule_id + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        stops = []
+
+        # Stops query
+        try:
+            stop_list = SemesterScheduleStop.objects.filter(schedule__schedule_id=schedule_id)
+        except Exception as e:
+            print(e)
+            return
+
+        for stop in stop_list:
+            stops.append({
+                "stop_name":stop.stop.stop_name,
+                "stop_cost":stop.stop.cost
+            })
+
+        data = {
+            "trip_date":trip.trip_date,
+            "assigned_driver":driver_name,
+            "starting_location":starting_location,
+            "final_destination":final_destination,
+            "license_plate":license_plate,
+            "bus_description":bus_description,
+            "stop":stops
+        }
+        trips.append(data)
+
+        return JsonResponse({"Trips":trips},status=200)
+
+
+
     return
 
 def get_trips_in_date_range() -> JsonResponse | HttpResponse:

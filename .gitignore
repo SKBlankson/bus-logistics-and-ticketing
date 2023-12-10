@@ -88,7 +88,7 @@ local_settings.py
 
 .env
 db.sqlite3
-#DigiCertGlobalRootCA.crt.pem
+DigiCertGlobalRootCA.crt.pem
 DigiCertGlobalRootCA.cer
 logistics_eticketing
 scrap
