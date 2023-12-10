@@ -101,7 +101,7 @@ class StaffShuttleTrip(models.Model):
 
 
 class Stops(models.Model):
-    stop_id = models.CharField(primary_key=True, max_length=20)
+    stop_id = models.CharField(primary_key=True, max_length=150)
     stop_name = models.CharField(unique=True, max_length=150)
     cost = models.FloatField()
 

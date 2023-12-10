@@ -6,6 +6,7 @@ from Logistics_ticket_API.serializers import *
 from django.db import connection
 from rest_framework.decorators import api_view
 from . import helpers
+import hashlib
 from datetime import *
 
 
@@ -122,27 +123,22 @@ def check_stop_in_db(stop_name : str):
     except:
         return False
 
-def create_daily_trips():
-    """
-    Creates the daily trips for the semester excluding weekends
-    :return:
-    """
-    # Create the trips for today
-    current_date = datetime.now().date()
-    semester_schedule = SemesterSchedule.objects.all()
-    count=0
 
-    for trip in semester_schedule:
-        new_trip = Trip(
-            trip_id = str(trip.start_date) + str(count),
-            schedule= trip,
-            trip_date=current_date,
-            assigned_driver=trip.assigned_driver,
-            assigned_vehicle=trip.assigned_vehicle
-        )
-        new_trip.save()
 
-    return
+def custom_hash(input_string):
+
+    hash_object = hashlib.sha256(input_string.encode())
+
+
+    hex_digest = hash_object.hexdigest()
+
+    # Take the first 10 characters of the hash and convert them to an integer
+    short_hash = int(hex_digest[:10], 16)
+
+    return short_hash
+
+
+
 
 
 

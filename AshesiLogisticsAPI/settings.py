@@ -17,7 +17,7 @@ import mysql.connector
 import pyodbc
 from azure.identity import ManagedIdentityCredential, ClientSecretCredential
 from dotenv import load_dotenv
-from azure.keyvault.secrets import SecretClient
+# from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 from django.core.management.utils import get_random_secret_key
 

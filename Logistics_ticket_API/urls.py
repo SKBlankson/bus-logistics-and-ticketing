@@ -35,5 +35,6 @@ urlpatterns = [
     path('vehicles/expiringpermits',fleet_endpoints.get_expiring_vehicle_permits),
     path('vehicles/expiringdrivers', fleet_endpoints.get_expiring_drivers_licenses),
     path('trips/createsemestertrip', trips_endpoints.create_semester_trip),
-    path('trips/todaytrips', trips_endpoints.get_todays_trips)
+    path('trips/todaytrips', trips_endpoints.get_todays_trips),
+    path('trips/createtodaytrips', trips_endpoints.create_daily_trips)
 ]

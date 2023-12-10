@@ -12,7 +12,7 @@ from datetime import *
 # import asyncio
 
 
-# TODO how do you get the system to automatically create tomorrows trips?
+# TODO how do you get the system to automatically create tomorrows trips? - ans cron jobs
 
 @api_view(['POST'])
 def create_semester_trip(request) -> HttpResponse:
@@ -25,7 +25,7 @@ def create_semester_trip(request) -> HttpResponse:
     rawJson = request.body.decode('utf-8')
     trip_data = json.loads(rawJson)
 
-    # Get drive and bus details
+    # Get driver and bus details
     assigned_bus = trip_data.get('assigned_bus')
     assigned_driver = trip_data.get('assigned_driver')
     print(assigned_bus, assigned_driver)
@@ -91,7 +91,7 @@ def create_semester_trip(request) -> HttpResponse:
     final_dest_ref = Stops.objects.get(stop_id = final_destination)
 
 
-    # Create and save new semester  schedule object
+    # Create and save new semester schedule object
     new_sem_trip = SemesterSchedule(
         title = title,
         pickup_location = pickup_ref,
@@ -117,7 +117,7 @@ def create_semester_trip(request) -> HttpResponse:
                                                   arrival_time = stop.get('arrival_time'))
             print("created decomposition!")
             sem_sched_stop.save()
-         # Decomposed startand end stops
+        # Decomposed start and end stops
         for stop in start_end_stops:
             sem_sched_stop = SemesterScheduleStop(stop_id = stop.upper(),
                                                   schedule_id = new_sem_trip.schedule_id,
@@ -147,11 +147,12 @@ def edit_semester_trip(request) -> HttpResponse:
 def delete_semester_trip(request) -> HttpResponse:
     return
 
+# TODO optimization would be to make this a "rolling file"
 @api_view(['GET'])
 def get_todays_trips(request) -> JsonResponse | HttpResponse:
     """
     Gets the available trips for the current date
-    :param request:
+    :param request: if request contains param:mobible,
     :return:
     """
     trips = []
@@ -160,7 +161,9 @@ def get_todays_trips(request) -> JsonResponse | HttpResponse:
     #     return
 
     # Query for today's trips
-    todays_trips = Trip.objects.filter(trip_date=current_date)
+    todays_trips = Trip.objects.filter(trip_date=current_date).order_by('schedule__departure_time')
+    # exepcted_no_of_trips = todays_trips.count()
+
     for trip in todays_trips:
         # Get bus and driver details
         driver_name = f"{str(trip.assigned_driver.employee.f_name)} " \
@@ -168,30 +171,30 @@ def get_todays_trips(request) -> JsonResponse | HttpResponse:
         license_plate = trip.assigned_vehicle.license_plate
         bus_description = trip.assigned_vehicle.descriptive_name
 
-        # Get stops and cost
+        # Get stops, cost and times
         starting_location = str(trip.schedule.pickup_location.stop_name)
         final_destination = str(trip.schedule.final_destination.stop_name)
         schedule_id = str(trip.schedule.schedule_id)
-        print(schedule_id + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        departure_time = trip.schedule.departure_time
         stops = []
 
         # Stops query
-        try:
-            stop_list = SemesterScheduleStop.objects.filter(schedule__schedule_id=schedule_id)
-        except Exception as e:
-            print(e)
-            return
+
+        stop_list = SemesterScheduleStop.objects.filter(schedule__schedule_id=schedule_id).order_by('departure_time')
+
 
         for stop in stop_list:
             stops.append({
                 "stop_name":stop.stop.stop_name,
-                "stop_cost":stop.stop.cost
+                "stop_cost":stop.stop.cost,
+                "stop_departure_time":stop.departure_time
             })
 
         data = {
             "trip_date":trip.trip_date,
             "assigned_driver":driver_name,
             "starting_location":starting_location,
+            "departure_time":departure_time,
             "final_destination":final_destination,
             "license_plate":license_plate,
             "bus_description":bus_description,
@@ -199,11 +202,41 @@ def get_todays_trips(request) -> JsonResponse | HttpResponse:
         }
         trips.append(data)
 
-        return JsonResponse({"Trips":trips},status=200)
+
+    return JsonResponse({"Trips":trips},status=200)
 
 
 
-    return
+
+@api_view(['PUT'])
+def create_daily_trips(request) -> HttpResponse:
+    """
+    Creates a daily trip for all trips listed on semester schedule
+    """
+    try:
+        # Create the trips for today
+        current_date = datetime.now().date()
+        semester_schedule = SemesterSchedule.objects.all()
+        todo = SemesterSchedule.objects.all().count()
+        completed = 0
+
+        for trip in semester_schedule:
+            new_trip = Trip(
+                trip_id = str(current_date) + str(completed),
+                schedule= trip,
+                trip_date=current_date,
+                assigned_driver=trip.assigned_driver,
+                assigned_vehicle=trip.assigned_vehicle
+            )
+            new_trip.save()
+            completed +=1
+    except Exception as e:
+        print(e)
+        return HttpResponse(content="Failed to create some trips. Consider "
+                                    "resetting the trips databse", status=500)
+
+    return HttpResponse(content=f"{str(completed)} out of "
+                                f"{str(todo)} trips created")
 
 def get_trips_in_date_range() -> JsonResponse | HttpResponse:
     return
@@ -216,6 +249,8 @@ def delete_trip() -> HttpResponse:
 
 def book_trip():
     return
+
+
 
 
 
