@@ -45,7 +45,8 @@ def get_driver(request) -> HttpResponse | JsonResponse :
         'license_id':query.drivers_license_number,
         'license_expirey':query.license_expiry_date,
         'address':query.address,
-        'assigned_vehicles':assigned_vehicles
+        'assigned_vehicles':assigned_vehicles,
+        'momo_number':query.employee.momo_number
     }
     driver_details = data
 
@@ -89,7 +90,8 @@ def get_all_drivers(request) -> HttpResponse | JsonResponse :
                 'license_id': driver.drivers_license_number,
                 'license_expirey': driver.license_expiry_date,
                 'address': driver.address,
-                'assigned_vehicles': assigned_vehicles
+                'assigned_vehicles': assigned_vehicles,
+                'momo_number': driver.employee.momo_number
             }
             driver_list.append(data)
     except Exception as e:
