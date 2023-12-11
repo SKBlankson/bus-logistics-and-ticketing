@@ -55,8 +55,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Logistics_ticket_API',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
 ]
+
+AUTH_USER_MODEL = 'Logistics_ticket_API.AshesiEmployee'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,6 +77,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost",
     "https://localhost",
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 
 ROOT_URLCONF = 'AshesiLogisticsAPI.urls'

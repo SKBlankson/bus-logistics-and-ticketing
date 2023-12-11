@@ -3,23 +3,61 @@
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+#   * Remove `managed = False
+#   ` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
-class AshesiEmployee(models.Model):
+class customUserManager(BaseUserManager):
+    # define 2 methods, create user and create superuser
+    def create_user(self, employee_id, f_name, l_name, ashesi_email,
+                    password, **other_fields):
+
+        other_fields.setdefault("is_staff", True)
+        other_fields.setdefault("is_superuser", False)
+        # other_fields.setdefault("is_active", True)
+
+        ashesi_email = self.normalize_email(ashesi_email)
+        new_user = self.model(employee_id=employee_id, f_name=f_name,
+                              l_name=l_name, ashesi_email=ashesi_email, password=password, **other_fields)
+        new_user.set_password(password)
+        new_user.save()
+
+        return new_user
+
+    def create_superuser(self, employee_id, f_name, l_name, ashesi_email,
+                         password, **other_fields):
+
+        other_fields.setdefault("is_staff", True)
+        other_fields.setdefault("is_superuser", True)
+        # other_fields.setdefault("is_active", True)
+
+        return self.create_user(employee_id, f_name, l_name, ashesi_email, password, **other_fields)
+
+
+class AshesiEmployee(AbstractBaseUser, PermissionsMixin):
     employee_id = models.CharField(primary_key=True, max_length=10)
     f_name = models.CharField(max_length=100)
     l_name = models.CharField(max_length=100)
-    ashesi_email = models.CharField(max_length=100, blank=True, null=True)
-    account_password = models.CharField(max_length=250, blank=True, null=True)
-    momo_network = models.JSONField(blank=True, null=True)
+    ashesi_email = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    # account_password = models.CharField(max_length=250)
+    momo_network = models.CharField(max_length=50, null=True, blank=True)
     momo_number = models.CharField(max_length=10, blank=True, null=True)
+
+    is_superuser = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=True)
+
+    objects = customUserManager()
+
+    USERNAME_FIELD = "ashesi_email"
+    REQUIRED_FIELDS = ["f_name","l_name","employee_id"]
 
     class Meta:
         managed = False
         db_table = 'ashesi_employee'
+
 
 
 class Driver(models.Model):
@@ -30,6 +68,7 @@ class Driver(models.Model):
 
     class Meta:
         managed = False
+
         db_table = 'driver'
 
 
@@ -40,6 +79,7 @@ class EmployeeTrip(models.Model):
 
     class Meta:
         managed = False
+
         db_table = 'employee_trip'
         unique_together = (('trip', 'employee'),)
 
@@ -51,6 +91,7 @@ class PrivateTrip(models.Model):
 
     class Meta:
         managed = False
+
         db_table = 'private_trip'
 
 
@@ -68,6 +109,7 @@ class SemesterSchedule(models.Model):
     end_date = models.DateField(blank=True, null=True)
     class Meta:
         managed = False
+
         db_table = 'semester_schedule'
 
 
@@ -80,6 +122,7 @@ class SemesterScheduleStop(models.Model):
 
     class Meta:
         managed = False
+
         db_table = 'semester_schedule_stop'
         # unique_together = (('schedule', 'stop'),)
 
@@ -89,6 +132,7 @@ class Staff(models.Model):
 
     class Meta:
         managed = False
+
         db_table = 'staff'
 
 
@@ -97,6 +141,7 @@ class StaffShuttleTrip(models.Model):
 
     class Meta:
         managed = False
+
         db_table = 'staff_shuttle_trip'
 
 
@@ -107,6 +152,7 @@ class Stops(models.Model):
 
     class Meta:
         managed = False
+
         db_table = 'stops'
 
 
@@ -119,6 +165,7 @@ class Ticket(models.Model):
 
     class Meta:
         managed = False
+
         db_table = 'ticket'
 
 
@@ -131,6 +178,7 @@ class Trip(models.Model):
 
     class Meta:
         managed = False
+
         db_table = 'trip'
 
 
@@ -151,4 +199,5 @@ class Vehicles(models.Model):
 
     class Meta:
         managed = False
+
         db_table = 'vehicles'

@@ -57,6 +57,21 @@ def check_driver_exists(request, driverId = None):
 
     return True
 
+def check_email_exists(email):
+    """
+    Checks if a driver exists
+    :param request:
+    :return:
+    """
+    # Check by ID first
+    try:
+       AshesiEmployee.objects.get(email=email)
+    except:
+        return False
+
+    return True
+
+
 def check_vehicle_exists(request, licenseplate = None):
     """
     Checks if a vehicle exists in the database
@@ -136,6 +151,7 @@ def custom_hash(input_string):
     short_hash = int(hex_digest[:10], 16)
 
     return short_hash
+
 
 
 

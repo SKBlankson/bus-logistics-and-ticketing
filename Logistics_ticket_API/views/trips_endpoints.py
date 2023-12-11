@@ -6,21 +6,25 @@ from django.http import JsonResponse, HttpRequest, HttpResponse
 from Logistics_ticket_API.models import  *
 from Logistics_ticket_API.serializers import *
 from django.db import connection
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from . import helpers
 from datetime import *
 # import asyncio
 
 
-# TODO how do you get the system to automatically create tomorrows trips? - ans cron jobs
+# TODO automatically create tomorrows trips? - ans -> cron job
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated, IsAdminUser])
 def create_semester_trip(request) -> HttpResponse:
     """
     Creates a trip for the semester
     :return: Returns an HttpResponse indicating failure or
     success of trip creation
     """
+
+    # check if
     # Get json data
     rawJson = request.body.decode('utf-8')
     trip_data = json.loads(rawJson)
@@ -118,13 +122,27 @@ def create_semester_trip(request) -> HttpResponse:
             print("created decomposition!")
             sem_sched_stop.save()
         # Decomposed start and end stops
-        for stop in start_end_stops:
-            sem_sched_stop = SemesterScheduleStop(stop_id = stop.upper(),
-                                                  schedule_id = new_sem_trip.schedule_id,
-                                                  departure_time = departure_time,
-                                                  arrival_time = arrival_time)
-            print("created decomposition!")
-            sem_sched_stop.save()
+        # for stop in start_end_stops:
+        #     sem_sched_stop = SemesterScheduleStop(stop_id = stop.upper(),
+        #                                           schedule_id = new_sem_trip.schedule_id,
+        #                                           departure_time = departure_time,
+        #                                           arrival_time = arrival_time)
+
+        # Save pickup location
+        sem_sched_stop = SemesterScheduleStop(stop_id=pickup_location.upper(),
+                                              schedule_id=new_sem_trip.schedule_id,
+                                              departure_time=departure_time,
+                                              arrival_time=departure_time)
+        sem_sched_stop.save()
+        # Save final destination
+        sem_sched_stop = SemesterScheduleStop(stop_id=final_destination.upper(),
+                                              schedule_id=new_sem_trip.schedule_id,
+                                              departure_time=arrival_time,
+                                              arrival_time=arrival_time)
+        sem_sched_stop.save()
+
+        print("created decomposition!")
+            # sem_sched_stop.save()
 
     except Exception as e:
         print(e)
@@ -155,6 +173,7 @@ def get_todays_trips(request) -> JsonResponse | HttpResponse:
     :param request: if request contains param:mobible,
     :return:
     """
+    client = request.query_params.get('client')
     trips = []
     current_date = str(datetime.now().date())
     # if current_date.weekday() == 5 or current_date.weekday() == 6:
@@ -179,7 +198,6 @@ def get_todays_trips(request) -> JsonResponse | HttpResponse:
         stops = []
 
         # Stops query
-
         stop_list = SemesterScheduleStop.objects.filter(schedule__schedule_id=schedule_id).order_by('departure_time')
 
 

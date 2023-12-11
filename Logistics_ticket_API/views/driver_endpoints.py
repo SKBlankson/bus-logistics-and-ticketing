@@ -124,6 +124,7 @@ def create_new_driver(request) -> HttpResponse:
     license_number_in = request.data.get('drivers_license_number')
     exp_date_in = request.data.get('license_expiry_date')
     momo_number_in = request.data.get('momo_number')
+    momo_network_in = request.data.get('momo_network')
     address_in = request.data.get('address')
 
     try:
@@ -131,7 +132,9 @@ def create_new_driver(request) -> HttpResponse:
         new_employee = AshesiEmployee(employee_id = employee_id_in,
                                       f_name = f_name_in,
                                       l_name = l_name_in,
-                                      momo_number = momo_number_in
+                                      momo_network = momo_network_in,
+                                      momo_number = momo_number_in,
+                                      ashesi_email=str(license_number_in) + f_name_in
                                       )
         new_employee.save()
 

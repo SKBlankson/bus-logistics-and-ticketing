@@ -19,6 +19,7 @@ from django.urls import path
 from .views import driver_endpoints
 from .views import fleet_endpoints
 from .views import trips_endpoints
+from .views import auth_endpoints
 
 urlpatterns = [
     path('drivers/',driver_endpoints.get_driver),
@@ -36,5 +37,7 @@ urlpatterns = [
     path('vehicles/expiringdrivers', fleet_endpoints.get_expiring_drivers_licenses),
     path('trips/createsemestertrip', trips_endpoints.create_semester_trip),
     path('trips/todaytrips', trips_endpoints.get_todays_trips),
-    path('trips/createtodaytrips', trips_endpoints.create_daily_trips)
+    path('trips/createtodaytrips', trips_endpoints.create_daily_trips),
+    path('auth/signup', auth_endpoints.signup),
+    path('auth/login', auth_endpoints.login)
 ]
