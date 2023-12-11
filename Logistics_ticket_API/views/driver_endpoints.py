@@ -166,40 +166,26 @@ def update_driver_details(request) -> HttpResponse:
 
     # Check that driver exists
     if helpers.check_driver_exists(request) == False:
-        return HttpResponse(content=f"The driver does not exists", status=404)
-
-    # Check that driver request has all required fields and does not contain null values
-    validation = helpers.check_driver_fields(request)
-    if validation[0] == False:
-        return validation[1]
+        return HttpResponse(content=f"The driver does not exist", status=404)
 
     # Store request data
     employee_id_in = request.query_params.get('employee_id')
-    f_name_in = request.data.get('f_name')
-    l_name_in = request.data.get('l_name')
-    license_number_in = request.data.get('drivers_license_number')
-    exp_date_in = request.data.get('license_expiry_date')
-    momo_number_in = request.data.get('momo_number')
-    address_in = request.data.get('address')
 
     try:
-        #Get driver refrence and update all fields
+        # Get driver reference
         driver = Driver.objects.get(employee__employee_id=employee_id_in)
-        driver.employee.f_name = f_name_in
-        driver.employee.l_name = l_name_in
-        driver.drivers_license_number = license_number_in
-        driver.license_expiry_date = exp_date_in
-        driver.address = address_in
-        driver.employee.momo_number = momo_number_in
+
+        # Update fields if present in the request data
+        for field in ['f_name', 'l_name', 'drivers_license_number', 'license_expiry_date', 'address', 'momo_number']:
+            if field in request.data:
+                setattr(driver.employee, field, request.data[field])
 
         # Save
         driver.employee.save()
         driver.save()
         print(driver.employee.l_name)
     except:
-        return HttpResponse(content="An error occured when updating the data",
-                            status=500)
-
+        return HttpResponse(content="An error occurred when updating the data", status=500)
 
     return HttpResponse(content='Driver details updated', status=200)
 

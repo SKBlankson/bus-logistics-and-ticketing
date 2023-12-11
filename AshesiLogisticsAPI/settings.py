@@ -123,11 +123,14 @@ WSGI_APPLICATION = 'AshesiLogisticsAPI.wsgi.application'
 
 # load_dotenv()
 
-# user-assigned managed identity
+# # user-assigned managed identity
 managed_identity_client_id = os.getenv('AZURE_MYSQL_CLIENTID')
 cred = ManagedIdentityCredential(client_id=managed_identity_client_id)
 
-accessToken = cred.get_token('htts://ossrdbms-add.database.windows.net/.default')
+# system-assigned managed identity
+cred = ManagedIdentityCredential()
+
+accessToken = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
 
 
 host = os.getenv('AZURE_MYSQL_HOST')
@@ -150,6 +153,7 @@ DATABASES = {
         #     'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
         #     # Add any additional SSL options here if needed
         # },
+        # 'OPTIONS': {'sslmode': 'require'},
     }
 }
 
