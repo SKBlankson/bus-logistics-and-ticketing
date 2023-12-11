@@ -15,7 +15,7 @@ from pathlib import Path
 import os
 import mysql.connector
 import pyodbc
-from azure.identity import ManagedIdentityCredential, ClientSecretCredential
+from azure.identity import ManagedIdentityCredential, ClientSecretCredential, DefaultAzureCredential
 from dotenv import load_dotenv
 # from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
@@ -32,7 +32,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('secret_key')
 
-print()
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -120,23 +121,42 @@ WSGI_APPLICATION = 'AshesiLogisticsAPI.wsgi.application'
 # cred = ManagedIdentityCredential(client_id=managed_identity_client_id)
 # accessToken = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
 
-load_dotenv()
+# load_dotenv()
+
+# user-assigned managed identity
+managed_identity_client_id = os.getenv('AZURE_MYSQL_CLIENTID')
+cred = ManagedIdentityCredential(client_id=managed_identity_client_id)
+
+accessToken = cred.get_token('htts://ossrdbms-add.database.windows.net/.default')
+
+
+host = os.getenv('AZURE_MYSQL_HOST')
+database = os.getenv('AZURE_MYSQL_NAME')
+user = os.getenv('AZURE_MYSQL_USER')
+password = accessToken.token # this is accessToken acquired from above step.
+
+print(cred)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('db_name'),
-        'USER': os.getenv('db_user'),
-        'PASSWORD': os.getenv('db_password'),
-        'HOST': os.getenv('host'),
-        'PORT': 3306,
+        'NAME': database,
+        'USER': user,
+        'PASSWORD': password,
+        'HOST': host,
+        # 'PORT': 3306,
 
-        # 'client_flags': [mysql.connector.ClientFlag.SSL],
-        'OPTIONS': {
-            'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
-            # Add any additional SSL options here if needed
-        },
+        # # 'client_flags': [mysql.connector.ClientFlag.SSL],
+        # 'OPTIONS': {
+        #     'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
+        #     # Add any additional SSL options here if needed
+        # },
     }
 }
+
+
+
+
+
 
 
 
