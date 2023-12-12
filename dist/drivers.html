@@ -1,0 +1,598 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drivers</title>
+    <link rel="stylesheet" href="output.css">
+    <style>
+         .delete-icons {
+            display: none;
+            margin-right: 10px; 
+        }
+    </style>
+</head>
+<body class="overscroll-none">
+    <div id="topbar" class="bg-red sticky top-0 flex flex-row items-center h-16 drop-shadow-sm justify-end">
+        <a href="#" class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#ffffff" fill-rule="evenodd" d="M12 4a8 8 0 0 0-6.96 11.947A4.99 4.99 0 0 1 9 14h6a4.99 4.99 0 0 1 3.96 1.947A8 8 0 0 0 12 4Zm7.943 14.076A9.959 9.959 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12a9.958 9.958 0 0 0 2.057 6.076l-.005.018l.355.413A9.98 9.98 0 0 0 12 22a9.947 9.947 0 0 0 5.675-1.765a10.055 10.055 0 0 0 1.918-1.728l.355-.413l-.005-.018ZM12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6Z" clip-rule="evenodd"/></svg>                        
+            <span class="pr-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g id="evaArrowIosDownwardFill0"><g id="evaArrowIosDownwardFill1"><path id="evaArrowIosDownwardFill2" fill="#ffffff" d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15a1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16Z"/></g></g></g></svg>                    
+            </span>
+        </a>
+    </div>
+    <div id="page" class="flex flex-row w-full h-full ">
+        <div id="sidebar" class="w-1/5 shadow-xl">
+            <div class="mt-10 space-y-5 ">
+                <div class="flex flex-row items-center pl-5 bg-red rounded-l-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#ffffff" d="M2 3h20c1.05 0 2 .95 2 2v14c0 1.05-.95 2-2 2H2c-1.05 0-2-.95-2-2V5c0-1.05.95-2 2-2m12 3v1h8V6h-8m0 2v1h8V8h-8m0 2v1h7v-1h-7m-6 3.91C6 13.91 2 15 2 17v1h12v-1c0-2-4-3.09-6-3.09M8 6a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3Z"/></svg>                    
+                    <a href="drivers.html" class="ml-3 py-3 text-white">Drivers</a >
+                </div>
+                <div class="flex flex-row items-center pl-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M19 4h-1V3c0-.6-.4-1-1-1s-1 .4-1 1v1H8V3c0-.6-.4-1-1-1s-1 .4-1 1v1H5C3.3 4 2 5.3 2 7v1h20V7c0-1.7-1.3-3-3-3zM2 19c0 1.7 1.3 3 3 3h14c1.7 0 3-1.3 3-3v-9H2v9zm15-7c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1zm0 4c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1zm-5-4c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1zm0 4c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1zm-5-4c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1zm0 4c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1z"/></svg>
+                    <a href="emptyschedule.html" class="ml-3 py-2 block" >Scheduling</a >
+                </div>
+                <div class="flex flex-row ml-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 512 512"><path fill="#011936" d="m490.18 181.4l-44.13-44.13a20 20 0 0 0-27-1a30.81 30.81 0 0 1-41.68-1.6a30.81 30.81 0 0 1-1.6-41.67a20 20 0 0 0-1-27L330.6 21.82a19.91 19.91 0 0 0-28.13 0l-70.35 70.34a39.87 39.87 0 0 0-9.57 15.5a7.71 7.71 0 0 1-4.83 4.83a39.78 39.78 0 0 0-15.5 9.58l-180.4 180.4a19.91 19.91 0 0 0 0 28.13L66 374.73a20 20 0 0 0 27 1a30.69 30.69 0 0 1 43.28 43.28a20 20 0 0 0 1 27l44.13 44.13a19.91 19.91 0 0 0 28.13 0l180.4-180.4a39.82 39.82 0 0 0 9.58-15.49a7.69 7.69 0 0 1 4.84-4.84a39.84 39.84 0 0 0 15.49-9.57l70.34-70.35a19.91 19.91 0 0 0-.01-28.09Zm-228.37-29.65a16 16 0 0 1-22.63 0l-11.51-11.51a16 16 0 0 1 22.63-22.62l11.51 11.5a16 16 0 0 1 0 22.63Zm44 44a16 16 0 0 1-22.62 0l-11-11a16 16 0 1 1 22.63-22.63l11 11a16 16 0 0 1 .01 22.66Zm44 44a16 16 0 0 1-22.63 0l-11-11a16 16 0 0 1 22.63-22.62l11 11a16 16 0 0 1 .05 22.67Zm44.43 44.54a16 16 0 0 1-22.63 0l-11.44-11.5a16 16 0 1 1 22.68-22.57l11.45 11.49a16 16 0 0 1-.01 22.63Z"/></svg>
+                    <a href="ticketing.html" class="ml-3 block">Ticketing App</a >
+                </div>
+                <div class=" flex flex-row items-center pl-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M18 11H6V6h12m-1.5 11a1.5 1.5 0 0 1-1.5-1.5a1.5 1.5 0 0 1 1.5-1.5a1.5 1.5 0 0 1 1.5 1.5a1.5 1.5 0 0 1-1.5 1.5m-9 0A1.5 1.5 0 0 1 6 15.5A1.5 1.5 0 0 1 7.5 14A1.5 1.5 0 0 1 9 15.5A1.5 1.5 0 0 1 7.5 17M4 16c0 .88.39 1.67 1 2.22V20a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1h8v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10Z"/></svg>
+                    <a href="vehicles.html" class="ml-3 block py-2">Vehicles</a >
+                </div>
+                
+            </div>
+            <a href="#" class="inline-flex ml-5 absolute inset-x-0 bottom-0 pb-2 items-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g id="feLogout0" fill="none" fill-rule="evenodd" stroke="none" stroke-width="1"><g id="feLogout1" fill="#011936"><path id="feLogout2" d="M3 5c0-1.1.9-2 2-2h8v2H5v14h8v2H5c-1.1 0-2-.9-2-2V5Zm14.176 6L14.64 8.464l1.414-1.414l4.95 4.95l-4.95 4.95l-1.414-1.414L17.176 13H10.59v-2h6.586Z"/></g></g></svg>
+                <p>Log out</p>
+            </a >
+           
+        </div>
+        <div id="content" class="w-4/5 flex flex-row mx-14 mt-10 overflow-auto justify-between">
+            <div class="flex flex-col" id="container">
+                <span class="flex justify-end items-center mb-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 32 32"><path fill="#011936" d="M16 2A14.172 14.172 0 0 0 2 16a14.172 14.172 0 0 0 14 14a14.172 14.172 0 0 0 14-14A14.172 14.172 0 0 0 16 2Zm8 15h-7v7h-2v-7H8v-2h7V8h2v7h7Z"/><path fill="none" d="M24 17h-7v7h-2v-7H8v-2h7V8h2v7h7v2z"/></svg>
+                    <button class="mr-3 font-bold" id="add">Add Driver</button>
+                </span>
+                <!-- <div>
+                    <img src="" alt="" class="w-72 h-52">
+                    <div class="w-72 h-44 shadow-lg pl-3">
+                        <span class="flex flex-row justify-between mr-3 mt-3 font-bold">
+                            <p id="name">Bright Mensah</p>
+                            <button id="edit" onclick="return handleEdit()">
+                                <svg xmlns="http://www.w3.org/2000/svg"  width="24" height="24" viewBox="0 0 24 24"><path fill="#2f4c78" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z"/></svg>
+                            </button>
+                        </span>
+                        <form action="GET" id="details">
+                            <label for="vehicle">Assigned to:</label>
+                            <select name="" id="bus" disabled>
+                                <option value="bus1">White Coaster GX-1234-56</option>
+                                <option value="bus1">White Coaster GX-1234-56</option>
+                                <option value="bus1">White Coaster GX-1234-56</option>
+                            </select> 
+                            <div id="buses" class="flex items-center"> 
+                                <span class="flex items-center mr-5">
+                                   <p> - Bus 1</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="delBus" class="delete-icons" width="16" height="16" viewBox="0 0 16 16"><path fill="#923D41" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z"/></svg> 
+                                </span>
+                                <span class="flex items-center">
+                                   <p>- Bus 1</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="delBus" class="delete-icons" width="16" height="16" viewBox="0 0 16 16"><path fill="#923D41" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z"/></svg> 
+                                </span>
+                                
+                                 <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" id="addBus" width="20" height="20" viewBox="0 0 32 32"><path fill="#2f4c78" d="M16 2A14.173 14.173 0 0 0 2 16a14.173 14.173 0 0 0 14 14a14.173 14.173 0 0 0 14-14A14.173 14.173 0 0 0 16 2Zm8 15h-7v7h-2v-7H8v-2h7V8h2v7h7Z"/><path fill="none" d="M24 17h-7v7h-2v-7H8v-2h7V8h2v7h7v2z"/></svg> 
+                            </div>
+                            
+                            <br>
+                            <label for="contact">Contact:</label>
+                            <input type="tel" value="023456789" id="contact" disabled>
+                            <br>
+                            <label for="address">Address:</label>
+                            <input type="text" id="address" value="3rd Avenue, Madina" disabled>
+
+                            <button id="save" type="submit" onclick="return handleSave()" style="display: none;" >
+                                <span class="text-sm flex flex-row items-center font-semibold mt-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5" width="20" height="20" viewBox="0 0 24 24"><path fill="#011936" d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3s3 1.34 3 3s-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                                    Save Changes
+                                </span>
+                            </button>
+
+                        </form> -->
+                        <!-- <div class=" mt-3">
+                            Assigned to: Bus 1
+                        </div> -->
+                        <!-- <div class=" ">Contact: 023456789</div> -->
+                        <!-- <div class="">Address: 3rd Avenue, Madina</div> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+                
+           
+        </div>
+    </div>
+    <div class="hidden overscroll-none absolute inset-0 bg-black bg-opacity-50" id="addModal">
+        <div class="absolute w-2/5 h-5/6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg overflow-y-auto" >
+            <span  class="flex justify-end mr-2 mt-2"><button id="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#011936" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 7l10 10M7 17L17 7"/></svg></button></span>
+            <p class="flex justify-center mt-3 font-bold text-2xl">Add New Driver</p>
+         
+            <div class="flex flex-col ml-3 mr-3 mt-3">
+            
+              
+                <form id="newDriverForm" class="" action="POST">
+                  <div class="mb-5">
+                    <label for="fname">First Name:</label>
+                    <input type="text" name="f_name" id="fname" required >
+                  </div>
+                  <div class="mb-5">
+                    <label for="lname">Last Name:</label>
+                    <input type="text" name="l_name" id="lname" required >
+                  </div>
+              
+                  <div class="mb-5">
+                    <label for="employeeid">Employee ID:</label>
+                    <input type="text" id="employeeid" name="employee_id" class="form-control" required >
+                  </div>
+                  <div class="mb-5">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" class="form-control" required>
+                  </div>
+                  <div class="mb-5">
+                    <label for="contact">Contact:</label>
+                    <input type="text" id="contact" name="momo_number" class="form-control" required>
+                  </div>
+                  <p class="text-gray-500 font-semibold">Driver's License Information</p>
+                  <div class="mb-5">
+                      <label for="licenseNum">License Number:</label>
+                      <input type="text" id="licenseNum" name="drivers_license_number" class="form-control" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="licenseExpiry">License Expiry Date:</label>
+                        <input type="date" id="licenseExpiry" name="license_expiry_date" class="form-control" required>
+                    </div>
+                    <p class="text-gray-500 font-semibold text-center">Disclaimer: To assign a driver to a vehicle, go to the Vehicles page</p>
+                  
+              
+                </form>
+                <!-- Do the script for saving new stuff -->
+                  <button type="button" class="flex justify-end items-center mb-5" id="saveBus" onclick="handleDriverSave()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5" width="20" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3s3 1.34 3 3s-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                    Save 
+                </button>
+              </div>
+            
+              
+
+
+        </div>
+    </div>
+    <script>
+        let addModal = document.getElementById('addModal');
+        let addBus = document.getElementById('add');
+        let closeBus = document.getElementById('close');
+        let save = document.getElementById('saveBus');
+
+        // open and close the new bus modal
+        addBus.onclick = function() {
+        addModal.style.display = 'block';
+        };
+
+        closeBus.onclick = function() {
+        addModal.style.display = 'none';
+        };
+
+        // window.onclick = function (event) {
+        //     if (event.target == addModal) {
+        //         addModal.style.display = "none";
+        //     }
+        // }
+
+         function handleEdit(driverId) {
+             
+            //  document.getElementById('vehicle').disabled = false;
+            console.log('contact-' + driverId);
+            document.getElementById('name-'+ driverId).style.display = 'none';
+            document.querySelector('.fname-label-'+driverId).style.display = 'block';
+            document.querySelector('.lname-label-'+driverId).style.display = 'block';
+            document.getElementById('fname-'+ driverId).style.display = 'block';
+            document.getElementById('lname-'+ driverId).style.display = 'block';
+            document.getElementById('fname-'+ driverId).disabled = false;
+            document.getElementById('lname-'+ driverId).disabled = false;
+            document.getElementById('license-'+ driverId).disabled = false;
+            document.getElementById('expiry-'+ driverId).disabled = false;
+            document.getElementById('contact-' + driverId).disabled = false;
+            document.getElementById('address-' + driverId).disabled = false;
+            document.getElementById('edit-' + driverId).hidden = true;
+            document.getElementById('save-' + driverId).style.display = 'block';
+
+            
+                        
+             return false;
+         }
+         function handleSave(driverId) {
+             
+            //  document.getElementById('vehicle').disabled = true;
+            document.getElementById('name-'+ driverId).style.display = 'block';
+            document.querySelector('.fname-label-'+driverId).style.display = 'none';
+            document.querySelector('.lname-label-'+driverId).style.display = 'none';
+            document.getElementById('fname-'+ driverId).style.display = 'none';
+            document.getElementById('lname-'+ driverId).style.display = 'none';
+            document.getElementById('fname-'+ driverId).disabled = true;
+            document.getElementById('lname-'+ driverId).disabled = true;
+            document.getElementById('license-'+ driverId).disabled = true;
+            document.getElementById('expiry-'+ driverId).disabled = true;
+            document.getElementById('contact-' + driverId).disabled = true;
+            document.getElementById('address-' + driverId).disabled = true;
+            document.getElementById('edit-' + driverId).hidden = false;
+            document.getElementById('save-' + driverId).style.display = 'none';
+            //  document.getElementById('addBus').style.display = 'none';
+            //  document.getElementsByClassName('delete-icons').style.display = 'none';
+
+            const formData = new FormData();
+            // console.log(formData)
+            formData.append('f_name', document.getElementById('fname-'+driverId).value);
+            formData.append('l_name', document.getElementById('lname-'+driverId).value);
+            formData.append('drivers_license_number', document.getElementById('license-'+driverId).value);
+            formData.append('license_expiry_date', document.getElementById('expiry-'+driverId).value);
+            formData.append('momo_number', document.getElementById('contact-'+driverId).value);
+            formData.append('address', document.getElementById('address-'+driverId).value);
+
+
+            // Send a PATCH request with form data
+            // console.log(driverId)
+            // if (formData.entries().next().done) {
+            //     console.log('FormData is empty');
+            // } else {
+            //     // Logging FormData contents
+            //     for (const pair of formData.entries()) {
+            //         console.log(pair[0] + ', ' + pair[1]);
+            //     }
+            
+            // }
+            fetch(`http://127.0.0.1:8000/drivers/updatedriver?employee_id=${driverId}`, {
+                method: 'PATCH',
+                body: formData,
+                headers: {
+                    // If needed, specify additional headers
+                    // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
+                },
+            })
+            // .then(response => response.json())
+            .then(response => {
+                console.log(response); // Add this line
+                return response.json();
+            })
+            .then(responseData => {
+                if (responseData.success) {
+                    // Handle success, update form fields with updated data
+                    updateFormFields(responseData);
+                } else {
+                    // Handle error message
+                    alert('Error editing driver');
+                }
+            });
+
+             
+             return false;
+         }
+         function handleDriverSave() {
+             
+           
+            const formData = new FormData();
+            // // console.log(formData)
+            formData.append('f_name', document.getElementById('fname').value);
+            formData.append('l_name', document.getElementById('lname').value);
+            // formData.append('employeeid', document.getElementById('employeeid').value);
+            formData.append('momo_number', document.getElementById('contact').value);
+            formData.append('address', document.getElementById('address').value);
+            formData.append('drivers_license_number', document.getElementById('licenseNum').value);
+            formData.append('license_expiry_date', document.getElementById('licenseExpiry').value);
+            let employeeid = document.getElementById('employeeid').value;
+
+
+            // console.log(driverId)
+            if (formData.entries().next().done) {
+                console.log('FormData is empty');
+            } else {
+                // Logging FormData contents
+                for (const pair of formData.entries()) {
+                    console.log(pair[0] + ', ' + pair[1]);
+                }
+            
+            }
+
+            fetch(`http://127.0.0.1:8000/drivers/newdriver?employee_id=${employeeid}`, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    // If needed, specify additional headers
+                    // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
+                },
+            })
+            // .then(response => response.json())
+            .then(response => {
+                console.log(response); // Add this line
+                return response.json();
+            })
+            .then(responseData => {
+                if (responseData.success) {
+                    // Handle success, update form fields with updated data
+                    updateFormFields(responseData);
+                } else {
+                    // Handle error message
+                    alert('Error creating driver');
+                }
+            });
+
+            // window.location.reload();
+             return false;
+         }
+
+
+ async function fetchData() {
+    try {
+        const url = `http://127.0.0.1:8000/drivers/alldrivers`;
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+// Function to render data in cards
+async function renderData() {
+    const container = document.getElementById('container'); // Change to your actual container ID
+    container.classList.add('flex', 'flex-col')
+    const data = await fetchData();
+    // const buses = await fetchBusesData();
+    // const cars = await fetchCarsData();
+
+    // const busdata = await fetchBusData();
+
+    // console.log(data.bus_l)
+    
+
+    if (!data) {
+        return;
+    }
+    let rowContainer;
+    let index = 0;
+
+   
+    
+    data.Drivers.forEach(driver => {
+        if (index % 3 === 0) {
+            // Starting a new row after every 3 cards
+            rowContainer = document.createElement('div');
+            rowContainer.classList.add('flex', 'justify-between', 'mb-5'); 
+            container.appendChild(rowContainer);
+        }
+
+        const card = document.createElement('div');
+        card.classList.add('mr-16');
+
+        // Create elements for driver details (adjust as needed)
+        const image = document.createElement('img');
+        // image.src = 'driver.png'; // Replace with actual image path or URL
+        image.alt = '';
+        image.classList.add('w-72', 'h-52')
+
+        const inner = document.createElement('div')
+        inner.classList.add('w-72', 'h-44', 'shadow-lg', 'pl-3', 'overflow-y-auto')
+
+        const span = document.createElement('span');
+        span.classList.add('flex', 'flex-row','justify-between','mr-3', 'mt-3', 'font-bold');
+
+        const drivername = document.createElement('p');
+        drivername.textContent = driver.driver_fname + ' '+ driver.driver_lname;
+        drivername.id = `name-${driver.employee_id}`;
+
+        const edit = document.createElement('button');
+        edit.id = 'edit-' + driver.employee_id;
+        edit.setAttribute("onclick", "return handleEdit(" + driver.employee_id + ")")
+
+        const editsvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        
+        editsvg.setAttribute("width", "24");
+        editsvg.setAttribute("height", "24");
+        editsvg.setAttribute("viewBox", "0 0 24 24");
+
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("fill", "#2f4c78");
+        path.setAttribute("d", "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 0 0 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z");
+
+        editsvg.appendChild(path);
+        edit.appendChild(editsvg)
+
+        const form = document.createElement("form");
+        form.setAttribute("action", "PATCH");
+        form.setAttribute("id", `details-${driver.employee_id}`);
+
+        const fnameLabel = document.createElement("label");
+        fnameLabel.setAttribute("for", "fname");
+        fnameLabel.textContent = "First Name:";
+        fnameLabel.classList.add(`fname-label-${driver.employee_id}`);
+        fnameLabel.style.display = 'none';
+
+        
+        const fnameInput = document.createElement("input");
+        fnameInput.setAttribute("type", "text");
+        fnameInput.value = driver.driver_fname
+        fnameInput.setAttribute("id", `fname-${driver.employee_id}`);
+        fnameInput.setAttribute("name", "driver_fname")
+        fnameInput.setAttribute("disabled", "");
+        fnameInput.style.display = 'none';
+
+        
+        const lnameLabel = document.createElement("label");
+        lnameLabel.setAttribute("for", "lname");
+        lnameLabel.textContent = "Last Name:";
+        lnameLabel.classList.add(`lname-label-${driver.employee_id}`, 'font-semibold');
+        lnameLabel.style.display = 'none';
+
+        
+        const lnameInput = document.createElement("input");
+        lnameInput.setAttribute("type", "text");
+        lnameInput.value = driver.driver_lname
+        lnameInput.setAttribute("id", `lname-${driver.employee_id}`);
+        lnameInput.setAttribute("name", "driver_lname")
+        lnameInput.setAttribute("disabled", "");
+        lnameInput.style.display = 'none';
+
+
+        const assignedToLabel = document.createElement("label");
+        assignedToLabel.setAttribute("for", "bus");
+        assignedToLabel.textContent = "Assigned to:";
+        // form.appendChild(assignedToLabel);
+
+        const buses = document.createElement("div");
+        buses.setAttribute("name", "");
+        buses.setAttribute("id", "bus");
+        buses.classList.add('flex')
+        
+        // buses.setAttribute("disabled", "");
+
+        // Populate dropdown with new options
+        driver.assigned_vehicles.forEach(car => {
+            const option = document.createElement('p');
+            console.log(car.descriptive_name);
+            option.textContent = car.descriptive_name;
+            buses.appendChild(option);
+        })
+        if (driver.assigned_vehicles.length === 0) {
+            const option = document.createElement('p');
+            option.textContent = "No Assigned Cars";
+            buses.appendChild(option);
+        }
+
+        const lineBreak = document.createElement("br");
+
+        const licenseLabel = document.createElement("label");
+        licenseLabel.setAttribute("for", `license-${driver.employee_id}`);
+        licenseLabel.textContent = "License Number:";
+
+        const licenseInput = document.createElement("input");
+        licenseInput.setAttribute("type", "text");
+        licenseInput.value = driver.license_id
+        licenseInput.setAttribute("id", `license-${driver.employee_id}`);
+        licenseInput.setAttribute("disabled", "");
+        licenseInput.setAttribute("name", "license_id")
+    
+        const expiryLabel = document.createElement("label");
+        expiryLabel.setAttribute("for", `expiry-${driver.employee_id}`);
+        expiryLabel.textContent = "License Expiry Date:";
+
+        const expiryInput = document.createElement("input");
+        expiryInput.setAttribute("type", "date");
+        expiryInput.value = driver.license_expirey
+        expiryInput.setAttribute("id", `expiry-${driver.employee_id}`);
+        expiryInput.setAttribute("disabled", "");
+        expiryInput.setAttribute("name", "license_expirey")
+    
+
+        const contactLabel = document.createElement("label");
+        contactLabel.setAttribute("for", `contact-${driver.employee_id}`);
+        contactLabel.textContent = "Contact:";
+        
+        const contactInput = document.createElement("input");
+        contactInput.setAttribute("type", "tel");
+        contactInput.value = driver.momo_number
+        contactInput.setAttribute("id", `contact-${driver.employee_id}`);
+        contactInput.setAttribute("disabled", "");
+        contactInput.setAttribute("name", "momo_number")
+        // console.log()
+        console.log(contactInput.id);
+        
+        // Create and append a label and input element for "Address"
+        const addressLabel = document.createElement("label");
+        addressLabel.setAttribute("for", `address-${driver.employee_id}`);
+        addressLabel.textContent = "Address:";
+
+        const addressInput = document.createElement("input");
+        addressInput.setAttribute("type", "text");
+        addressInput.value = driver.address
+        addressInput.setAttribute("id", `address-${driver.employee_id}`);
+        addressInput.setAttribute("disabled", "");
+        addressInput.setAttribute("name", "address");
+
+        // Create and append the save button
+        const saveButton = document.createElement("button");
+        saveButton.setAttribute("id", `save-${driver.employee_id}`);
+        saveButton.setAttribute("type", "submit");
+        saveButton.setAttribute("onclick", `return handleSave(${driver.employee_id})`);
+        saveButton.setAttribute("style", "display: none;");
+
+        // Create and append the span element within the button
+        const spanElement = document.createElement("span");
+        spanElement.setAttribute("class", "text-sm flex flex-row items-center font-semibold mt-2");
+        saveButton.appendChild(spanElement);
+
+        // Create and append the svg element within the span
+        const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svgElement.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        svgElement.setAttribute("class", "mr-1.5");
+        svgElement.setAttribute("width", "20");
+        svgElement.setAttribute("height", "20");
+        svgElement.setAttribute("viewBox", "0 0 24 24");
+
+        const pathElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        pathElement.setAttribute("fill", "#011936");
+        pathElement.setAttribute("d", "M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3s3 1.34 3 3s-1.34 3-3 3zm3-10H5V5h10v4z");
+
+        svgElement.appendChild(pathElement);
+        spanElement.appendChild(svgElement);
+
+        // Create and append the text within the span
+        const buttonText = document.createTextNode("Save Changes");
+        spanElement.appendChild(buttonText);
+
+        // fnameLabel.style.display = 'inline-block';
+        // lnameLabel.style.display = 'inline-block';
+        // licenseLabel.style.display = 'inline-block';
+        // expiryLabel.style.display = 'inline-block';
+        // contactLabel.style.display = 'inline-block';
+        // addressLabel.style.display = 'inline-block';
+
+        form.appendChild(fnameLabel);
+        form.appendChild(fnameInput);
+        form.appendChild(document.createElement("p"));
+        form.appendChild(lnameLabel);
+        form.appendChild(lnameInput);
+        form.appendChild(document.createElement("p"));
+        form.appendChild(licenseLabel);
+        form.appendChild(licenseInput);
+        form.appendChild(document.createElement("p"));
+        form.appendChild(expiryLabel);
+        form.appendChild(expiryInput);
+        form.appendChild(document.createElement("p"));
+        form.appendChild(contactLabel);
+        form.appendChild(contactInput);
+        form.appendChild(document.createElement("p"));
+        form.appendChild(addressLabel);
+        form.appendChild(addressInput);
+        form.appendChild(saveButton);
+        
+        
+        span.appendChild(drivername);
+        span.appendChild(edit);
+        
+        inner.appendChild(span);
+        inner.appendChild(assignedToLabel);
+        inner.appendChild(buses);
+        // inner.appendChild(lineBreak);
+        inner.appendChild(form);
+        
+
+        card.appendChild(image);
+        card.appendChild(inner);
+
+        rowContainer.appendChild(card);
+
+        index++;
+    });
+
+}
+
+renderData();
+
+    </script>
+</body>
+</html>
