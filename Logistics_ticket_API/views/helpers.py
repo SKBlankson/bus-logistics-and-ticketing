@@ -1,3 +1,5 @@
+import os
+
 from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.http import JsonResponse, HttpRequest, HttpResponse
@@ -5,9 +7,11 @@ from Logistics_ticket_API.models import  *
 from Logistics_ticket_API.serializers import *
 from django.db import connection
 from rest_framework.decorators import api_view
-from . import helpers
+# from . import helpers
+import requests
 import hashlib
 from datetime import *
+import os
 
 
 def check_driver_fields(request):
@@ -152,7 +156,44 @@ def custom_hash(input_string):
 
     return short_hash
 
+def time_plus(time, timedelta):
+    start = datetime.datetime(
+        2000, 1, 1,
+        hour=time.hour, minute=time.minute, second=time.second)
+    end = start + timedelta
+    return end.time()
 
+
+def pay_for_ticket():
+    # import requests
+    # load_dotenv()
+    url = "https://paybox.com.co/pay"
+
+    payload = {'order_id': '123456',
+               'currency': 'GHS',
+               'amount': '1.0',
+               'mode': 'Test',
+               'mobile_network': 'AirtelTigo',
+               'voucher_code': '2314',
+               'mobile_number': '+233556207957',
+               # 'payload': '{"key":"data"}',
+               'payerName': 'John Doe',
+               'payerPhone': '+233',
+               'payerEmail': 'samuel.blankson@ashesi.edu.gh',
+               'customer_id': 'c-12345',
+               'callback_url': ''}
+    files = [
+
+    ]
+    headers = {
+        'Authorization': os.getenv('payment_token'),
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+    print(response.text)
+
+# pay_for_ticket()
 
 
 

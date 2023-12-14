@@ -175,6 +175,7 @@ class Trip(models.Model):
     trip_date = models.DateField()
     assigned_driver = models.ForeignKey(Driver, models.DO_NOTHING, db_column='assigned_driver')
     assigned_vehicle = models.ForeignKey('Vehicles', models.DO_NOTHING, db_column='assigned_vehicle')
+    booked_tickets = models.IntegerField(default=0)
 
     class Meta:
         managed = False

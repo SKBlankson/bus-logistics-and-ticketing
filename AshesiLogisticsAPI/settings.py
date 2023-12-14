@@ -20,6 +20,10 @@ from dotenv import load_dotenv
 # from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 from django.core.management.utils import get_random_secret_key
+from django.utils import timezone
+
+
+USE_TZ = True
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -124,35 +128,41 @@ WSGI_APPLICATION = 'AshesiLogisticsAPI.wsgi.application'
 # load_dotenv()
 
 # # user-assigned managed identity
-managed_identity_client_id = os.getenv('AZURE_MYSQL_CLIENTID')
-cred = ManagedIdentityCredential(client_id=managed_identity_client_id)
+# managed_identity_client_id = os.getenv('AZURE_MYSQL_CLIENTID')
+# cred = ManagedIdentityCredential(client_id=managed_identity_client_id)
+#
+# # system-assigned managed identity
+# cred = ManagedIdentityCredential()
+#
+# accessToken = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
 
-# system-assigned managed identity
-cred = ManagedIdentityCredential()
 
-accessToken = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
+# host = os.getenv('AZURE_MYSQL_HOST')
+# database = os.getenv('AZURE_MYSQL_NAME')
+# user = os.getenv('AZURE_MYSQL_USER')
+# password = accessToken.token # this is accessToken acquired from above step.
 
+load_dotenv()
+db_name = os.getenv('db_name')
+db_user = os.getenv('db_user')
+db_password = os.getenv('db_password')
+db_host = os.getenv('host')
 
-host = os.getenv('AZURE_MYSQL_HOST')
-database = os.getenv('AZURE_MYSQL_NAME')
-user = os.getenv('AZURE_MYSQL_USER')
-password = accessToken.token # this is accessToken acquired from above step.
-
-print(cred)
+# print(cred)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': database,
-        'USER': user,
-        'PASSWORD': password,
-        'HOST': host,
+        'NAME': db_name,
+        'USER': db_user,
+        'PASSWORD': db_password,
+        'HOST': db_host,
         # 'PORT': 3306,
 
         # # 'client_flags': [mysql.connector.ClientFlag.SSL],
-        # 'OPTIONS': {
-        #     'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
-        #     # Add any additional SSL options here if needed
-        # },
+        'OPTIONS': {
+            'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
+            # Add any additional SSL options here if needed
+        },
         # 'OPTIONS': {'sslmode': 'require'},
     }
 }
