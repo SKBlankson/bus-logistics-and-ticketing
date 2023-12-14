@@ -266,7 +266,7 @@ def get_todays_trips(request) -> JsonResponse | HttpResponse:
 @api_view(['GET'])
 def get_trips(request) -> HttpResponse | JsonResponse:
     """
-    Returns the upcoming trips. (Trips that are nearest in time)
+    Returns the upcoming or future trips depending on the query params
     :param requst:
     :return:
     """
@@ -276,12 +276,17 @@ def get_trips(request) -> HttpResponse | JsonResponse:
     all_trips = []
     current_date = datetime.now().date()
     current_time = datetime.now().time()
+    current_datetime = timezone.now()
+    current_time = current_datetime.time()
     time_window = 0
     time_period = request.query_params.get('time_period')
 
     # Query for today's trips
     todays_trips = Trip.objects.filter(trip_date=current_date, schedule__departure_time__gt=current_time).order_by(
-            'schedule__departure_time')
+        'schedule__departure_time')
+    for trip in todays_trips:
+        print("Trip ID:", trip.trip_id)
+        print("Departure Time:", trip.schedule.departure_time)
 
     if not todays_trips.exists():
         return JsonResponse({"message": "No more trips today."})
@@ -348,6 +353,7 @@ def get_trips(request) -> HttpResponse | JsonResponse:
         if departure_time_seconds < (time_window_seconds + 600):
             upcoming_trips.append(data)
         else:
+            # print(data.get('trip_id'))
             future_trips.append(data)
 
         # if client == 'admin':
@@ -358,7 +364,7 @@ def get_trips(request) -> HttpResponse | JsonResponse:
     # 'upcoming_trips' contains trips within 10 minutes of the time window,
     # and 'future_trips' contains trips beyond that time window
     if time_period == 'upcoming':
-        return JsonResponse({"upcoming_trips": upcoming_trips, "future_trips": future_trips}, status=200)
+        return JsonResponse({"upcoming_trips": upcoming_trips}, status=200)
     elif time_period == 'future':
         return JsonResponse({"future_trips": future_trips}, status=200)
 
