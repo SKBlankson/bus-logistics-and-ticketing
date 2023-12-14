@@ -316,8 +316,8 @@ def get_trips(request) -> HttpResponse | JsonResponse:
         for stop in stop_list:
             stops.append({
                 "stop_name": stop.stop.stop_name,
-                "stop_cost": stop.stop.cost,
-                "stop_departure_time": stop.departure_time
+                # "stop_cost": stop.stop.cost,
+                # "stop_departure_time": stop.departure_time
             })
 
         # Get capacity for trip
@@ -328,13 +328,13 @@ def get_trips(request) -> HttpResponse | JsonResponse:
         # Build trip object
         data = {
             "trip_id": trip.trip_id,
-            "trip_date": trip.trip_date,
-            "assigned_driver": driver_name,
+            # "trip_date": trip.trip_date,
+            # "assigned_driver": driver_name,
             "starting_location": starting_location,
             "departure_time": departure_time,
             "final_destination": final_destination,
-            "license_plate": license_plate,
-            "bus_description": bus_description,
+            # "license_plate": license_plate,
+            # "bus_description": bus_description,
             "booked_seats": capacity,
             "stop": stops,
         }

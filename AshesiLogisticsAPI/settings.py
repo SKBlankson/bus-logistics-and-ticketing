@@ -142,10 +142,35 @@ WSGI_APPLICATION = 'AshesiLogisticsAPI.wsgi.application'
 # user = os.getenv('AZURE_MYSQL_USER')
 # password = accessToken.token # this is accessToken acquired from above step.
 
+# load_dotenv()
+# db_name = os.getenv('db_name')
+# db_user = os.getenv('db_user')
+# db_password = os.getenv('db_password')
+# db_host = os.getenv('host')
+#
+# # print(cred)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': AZURE_MYSQL_NAME,
+#         'USER': db_user,
+#         'PASSWORD': db_password,
+#         'HOST': AZURE_MYSQL_HOST,
+#         # 'PORT': 3306,
+#
+#         # # 'client_flags': [mysql.connector.ClientFlag.SSL],
+#         'OPTIONS': {
+#             'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
+#             # Add any additional SSL options here if needed
+#         },
+#         # 'OPTIONS': {'sslmode': 'require'},
+#     }
+# }
 
-# # user-assigned managed identity
-managed_identity_client_id = os.getenv('AZURE_MYSQL_CLIENTID')
-cred = ManagedIdentityCredential(client_id=managed_identity_client_id)
+
+# # # user-assigned managed identity
+# managed_identity_client_id = os.getenv('AZURE_MYSQL_CLIENTID')
+# cred = ManagedIdentityCredential(client_id=managed_identity_client_id)
 
 # system-assigned managed identity
 cred = ManagedIdentityCredential()
@@ -166,7 +191,7 @@ DATABASES = {
         'USER': user,
         'PASSWORD': password,
         'HOST': host,
-        # 'PORT': 3306,
+        'PORT': 3306,
 
         # # 'client_flags': [mysql.connector.ClientFlag.SSL],
         # 'OPTIONS': {
@@ -176,6 +201,7 @@ DATABASES = {
         # 'OPTIONS': {'sslmode': 'require'},
     }
 }
+
 
 
 
