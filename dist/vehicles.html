@@ -139,7 +139,7 @@
 
             
         </div>
-        <div class="hidden overscroll-none absolute inset-0 bg-black bg-opacity-50" id="editBus">
+        <!-- <div class="hidden overscroll-none absolute inset-0 bg-black bg-opacity-50" id="editBus">
             <div class="absolute w-2/5 h-5/6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg overflow-y-auto" >
                 <button id="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#011936" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 7l10 10M7 17L17 7"/></svg></button>
                 <p class="flex justify-center mt-3 font-bold text-2xl" id="editTitle">Edit Bus Details</p>
@@ -205,19 +205,19 @@
                       </div>
                   
                     </form>
-                    <!-- <span class="flex justify-end"> -->
+                    <span class="flex justify-end">
                       <button type="submit" class="flex justify-end items-center mb-5" id="save">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5" width="20" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3s3 1.34 3 3s-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
                         Save Changes
                     </button>
-                  <!-- </span> -->
+                  </span> 
                   </div>
                 
                   
 
 
             </div>
-        </div>
+        </div> -->
         <div class="hidden overscroll-none absolute inset-0 bg-black bg-opacity-50" id="addBusModal">
             <div class="absolute w-2/5 h-5/6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg overflow-y-auto" >
                 <span  class="flex justify-end mr-2 mt-2"><button id="closeBus"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#011936" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 7l10 10M7 17L17 7"/></svg></button></span>
@@ -374,69 +374,176 @@
     <script>
          // Fetch user details from the server-side
          function handleEdit(license) {
-             
-            const name = document.getElementById('name');
-            name.id = 'name-'+ license;
-            name.disabled = false;
-            name.value = 
+            console.log(license);
 
-            const license = document.getElementById('license');
-            license.id = 'license'+ license;
-            license.disabled = false;
-
-            document.getElementById('capacity').disabled = false;
-            document.getElementById('make').disabled = false;
-            document.getElementById('model').disabled = false;
-            document.getElementById('issuer').disabled = false;
-            document.getElementById('issuerDate').disabled = false;
-            document.getElementById('expiry').disabled = false;
-            document.getElementById('last').disabled = false;
-            document.getElementById('next').disabled = false;
-            document.getElementById('driver').disabled = false;
-            document.getElementById('editIcon').hidden = true;
-            document.getElementById('edit').hidden = true;
-            const saveButton = document.getElementById('save');
-            saveButton.id = 'save-'+ license;
-            saveButton.onclick = handleSave(license);
-            saveButton.hidden = false;
+            document.getElementById('name-'+ license).disabled = false;
+            document.getElementById('license-'+ license).disabled = false;
+            document.getElementById('capacity-'+ license).disabled = false;
+            document.getElementById('make-'+ license).disabled = false;
+            document.getElementById('model-'+ license).disabled = false;
+            document.getElementById('issuer-'+ license).disabled = false;
+            document.getElementById('issuerDate-'+ license).disabled = false;
+            document.getElementById('expiry-'+ license).disabled = false;
+            document.getElementById('last-'+ license).disabled = false;
+            document.getElementById('next-'+ license).disabled = false;
+            document.getElementById('driver-'+ license).disabled = false;
+            document.getElementById('editIcon-'+ license).style.display = 'none';
+            document.getElementById('edit-'+ license).style.display = 'none';
+            const saveButton = document.getElementById('save-'+ license);
+            // saveButton.id = 'save-'+ license;
+            // saveButton.onclick = handleSave(license);
+            saveButton.style.display= 'block';
             
             return false;
         }
 function handleSave(license) {
-    document.getElementById('name').disabled = true;
-    document.getElementById('license').disabled = true;
-    document.getElementById('capacity').disabled = true;
-    document.getElementById('make').disabled = true;
-    document.getElementById('model').disabled = true;
-    document.getElementById('issuer').disabled = true;
-    document.getElementById('issuerDate').disabled = true;
-    document.getElementById('expiry').disabled = true;
-    document.getElementById('last').disabled = true;
-    document.getElementById('next').disabled = true;
-    document.getElementById('driver').disabled = true;
-    document.getElementById('edit').hidden = false;
-    document.getElementById('editIcon').hidden = false;
-    document.getElementById('save').hidden = true;
+    document.getElementById('name-'+ license).disabled = true;
+    document.getElementById('license-'+ license).disabled = true;
+    document.getElementById('capacity-'+ license).disabled = true;
+    document.getElementById('make-'+ license).disabled = true;
+    document.getElementById('model-'+ license).disabled = true;
+    document.getElementById('issuer-'+ license).disabled = true;
+    document.getElementById('issuerDate-'+ license).disabled = true;
+    document.getElementById('expiry-'+ license).disabled = true;
+    document.getElementById('last-'+ license).disabled = true;
+    document.getElementById('next-'+ license).disabled = true;
+    document.getElementById('driver-'+ license).disabled = true;
+    document.getElementById('editIcon-'+ license).style.display = 'block';
+    document.getElementById('edit-'+ license).style.display = 'block';
+    const saveButton = document.getElementById('save-'+ license);
+
+    saveButton.style.display= 'none';
 
     const formData = new FormData(document.getElementById('editUserDetailsForm'));
-    // console.log(formData)
-    // formData.append('f_name', document.getElementById('fname-'+driverId).value);
-    // formData.append('l_name', document.getElementById('lname-'+driverId).value);
-    // formData.append('drivers_license_number', document.getElementById('license-'+driverId).value);
-    // formData.append('license_expiry_date', document.getElementById('expiry-'+driverId).value);
-    // formData.append('momo_number', document.getElementById('contact-'+driverId).value);
-    // formData.append('address', document.getElementById('address-'+driverId).value);
+    // console.log(formData);
+    formData.append('descriptive_name', document.getElementById('name-'+ license).value);
+    formData.append('vehicle_type', 'Bus');
+    // formData.append('license_plate', document.getElementById('license-'+ license).value);
+    formData.append('capacity', document.getElementById('capacity-'+ license).value);
+    formData.append('make', document.getElementById('make-'+ license).value);
+    formData.append('model', document.getElementById('model-'+ license).value);
+    formData.append('permit_issuer', document.getElementById('issuer-'+ license).value);
+    formData.append('permit_issue_date', document.getElementById('issuerDate-'+ license).value);
+    formData.append('permit_expiry_date', document.getElementById('expiry-'+ license).value);
+    formData.append('last_maintenance_date', document.getElementById('last-'+ license).value);
+    formData.append('next_maintenance_date', document.getElementById('next-'+ license).value);
+    formData.append('employee_id', document.getElementById('driver-'+ license).value);
+    // document.getElementById('license-'+ license).disabled = true;
+    // document.getElementById('capacity-'+ license).disabled = true;
+    // document.getElementById('make-'+ license).disabled = true;
+    // document.getElementById('model-'+ license).disabled = true;
+    // document.getElementById('issuer-'+ license).disabled = true;
+    // document.getElementById('issuerDate-'+ license).disabled = true;
+    // document.getElementById('expiry-'+ license).disabled = true;
+    // document.getElementById('last-'+ license).disabled = true;
+    // document.getElementById('next-'+ license).disabled = true;
+    // document.getElementById('driver-'+ license).disabled = true;)
+
+    if (formData.entries().next().done) {
+                console.log('FormData is empty');
+            } else {
+                // Logging FormData contents
+                for (const pair of formData.entries()) {
+                    console.log(pair[0] + ', ' + pair[1]);
+                }
+            }
 
     // Make API request
-    fetch(`http://127.0.0.1:8000/vehicles/editvehicle?license_plate=${license}&vehicle_type=Private Vehicle&capacity=60&descriptive_name=Green&...`, {
+    fetch(`http://127.0.0.1:8000/vehicles/editvehicle?license_plate=${license}`, {
         method: 'PATCH',
         body: formData,
         headers: {
-            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/json'
             // You may need to add other headers if required by your API
         }
     })
-    .then(response => response.json())
+    .then(response => {
+                console.log(response); // Add this line
+                return response.json();
+            })
+    .then(responseData => {
+        if (responseData.success) {
+            // Update form fields with updated data
+            document.getElementById('name').value = responseData.name;
+            document.getElementById('license').value = responseData.license;
+            document.getElementById('issuer').value = responseData.issuer;
+            document.getElementById('issuerDate').value = responseData.issuerDate;
+            document.getElementById('expiry').value = responseData.expiry;
+            document.getElementById('last').value = responseData.last;
+            document.getElementById('next').value = responseData.next;
+        } else {
+            // Handle error message
+            alert('Error updating user details');
+        }
+    });
+
+    return false;
+}
+function handleCarSave(license) {
+    document.getElementById('name-'+ license).disabled = true;
+    document.getElementById('license-'+ license).disabled = true;
+    document.getElementById('capacity-'+ license).disabled = true;
+    document.getElementById('make-'+ license).disabled = true;
+    document.getElementById('model-'+ license).disabled = true;
+    document.getElementById('issuer-'+ license).disabled = true;
+    document.getElementById('issuerDate-'+ license).disabled = true;
+    document.getElementById('expiry-'+ license).disabled = true;
+    document.getElementById('last-'+ license).disabled = true;
+    document.getElementById('next-'+ license).disabled = true;
+    document.getElementById('driver-'+ license).disabled = true;
+    document.getElementById('editIcon-'+ license).style.display = 'block';
+    document.getElementById('edit-'+ license).style.display = 'block';
+    const saveButton = document.getElementById('save-'+ license);
+
+    saveButton.style.display= 'none';
+
+    const formData = new FormData(document.getElementById('editUserDetailsForm'));
+    // console.log(formData);
+    formData.append('descriptive_name', document.getElementById('name-'+ license).value);
+    formData.append('vehicle_type', 'Private Vehicle');
+    // formData.append('license_plate', document.getElementById('license-'+ license).value);
+    formData.append('capacity', document.getElementById('capacity-'+ license).value);
+    formData.append('make', document.getElementById('make-'+ license).value);
+    formData.append('model', document.getElementById('model-'+ license).value);
+    formData.append('permit_issuer', document.getElementById('issuer-'+ license).value);
+    formData.append('permit_issue_date', document.getElementById('issuerDate-'+ license).value);
+    formData.append('permit_expiry_date', document.getElementById('expiry-'+ license).value);
+    formData.append('last_maintenance_date', document.getElementById('last-'+ license).value);
+    formData.append('next_maintenance_date', document.getElementById('next-'+ license).value);
+    formData.append('employee_id', document.getElementById('driver-'+ license).value);
+    // document.getElementById('license-'+ license).disabled = true;
+    // document.getElementById('capacity-'+ license).disabled = true;
+    // document.getElementById('make-'+ license).disabled = true;
+    // document.getElementById('model-'+ license).disabled = true;
+    // document.getElementById('issuer-'+ license).disabled = true;
+    // document.getElementById('issuerDate-'+ license).disabled = true;
+    // document.getElementById('expiry-'+ license).disabled = true;
+    // document.getElementById('last-'+ license).disabled = true;
+    // document.getElementById('next-'+ license).disabled = true;
+    // document.getElementById('driver-'+ license).disabled = true;)
+
+    if (formData.entries().next().done) {
+                console.log('FormData is empty');
+            } else {
+                // Logging FormData contents
+                for (const pair of formData.entries()) {
+                    console.log(pair[0] + ', ' + pair[1]);
+                }
+            }
+
+    // Make API request
+    fetch(`http://127.0.0.1:8000/vehicles/editvehicle?license_plate=${license}`, {
+        method: 'PATCH',
+        body: formData,
+        headers: {
+            // 'Content-Type': 'application/json'
+            // You may need to add other headers if required by your API
+        }
+    })
+    .then(response => {
+                console.log(response); // Add this line
+                return response.json();
+            })
     .then(responseData => {
         if (responseData.success) {
             // Update form fields with updated data
@@ -529,60 +636,60 @@ async function populateDriverDropdown() {
 // Call the function to populate the dropdown when needed
 populateDriverDropdown();
 
-function handleCarSave() {
-    document.getElementById('nameBus').disabled = true;
-    document.getElementById('licenseBus').disabled = true;
-    document.getElementById('capacityBus').disabled = true;
-    document.getElementById('makeBus').disabled = true;
-    document.getElementById('modelBus').disabled = true;
-    document.getElementById('issuerBus').disabled = true;
-    document.getElementById('issuerDateBus').disabled = true;
-    document.getElementById('expiryBus').disabled = true;
-    document.getElementById('lastBus').disabled = true;
-    document.getElementById('nextBus').disabled = true;
-    document.getElementById('driverBus').disabled = true;
-    // document.getElementById('edit').hidden = false;
-    // document.getElementById('editIcon').hidden = false;
-    // document.getElementById('save').hidden = true;
-    // Make API request
-    fetch(`http://127.0.0.1:8000/vehicles/addvehicle?license_plate=${licenseBus}&vehicle_type=Bus&capacity=${capacityBus}&descriptive_name=${nameBus}&make=${makeBus}&model= ${modelBus}&permit_issuer=  ${issuerBus}&permit_issue_date=  ${issuerDateBus}&permit_expiry_date=  ${expiryBus}&last_maintenance_date=  ${lastBus}&next_maintenance_date=  ${nextBus}&assigned_driver=  ${driverBus}`, {
-        method: 'POST',
-        body: JSON.stringify({
-            nameBus,
-            licenseBus,
-            capacityBus,
-            makeBus,
-            modelBus,
-            issuerBus,
-            issuerDateBus,
-            expiryBus,
-            lastBus,
-            nextBus
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-            // You may need to add other headers if required by your API
-        }
-    })
-    .then(response => response.json())
-    .then(responseData => {
-        if (responseData.success) {
-            // Update form fields with updated data
-            document.getElementById('name').value = responseData.name;
-            document.getElementById('license').value = responseData.license;
-            document.getElementById('issuer').value = responseData.issuer;
-            document.getElementById('issuerDate').value = responseData.issuerDate;
-            document.getElementById('expiry').value = responseData.expiry;
-            document.getElementById('last').value = responseData.last;
-            document.getElementById('next').value = responseData.next;
-        } else {
-            // Handle error message
-            alert('Error updating user details');
-        }
-    });
+// function handleCarSave() {
+//     document.getElementById('nameBus').disabled = true;
+//     document.getElementById('licenseBus').disabled = true;
+//     document.getElementById('capacityBus').disabled = true;
+//     document.getElementById('makeBus').disabled = true;
+//     document.getElementById('modelBus').disabled = true;
+//     document.getElementById('issuerBus').disabled = true;
+//     document.getElementById('issuerDateBus').disabled = true;
+//     document.getElementById('expiryBus').disabled = true;
+//     document.getElementById('lastBus').disabled = true;
+//     document.getElementById('nextBus').disabled = true;
+//     document.getElementById('driverBus').disabled = true;
+//     // document.getElementById('edit').hidden = false;
+//     // document.getElementById('editIcon').hidden = false;
+//     // document.getElementById('save').hidden = true;
+//     // Make API request
+//     fetch(`http://127.0.0.1:8000/vehicles/addvehicle?license_plate=${licenseBus}&vehicle_type=Bus&capacity=${capacityBus}&descriptive_name=${nameBus}&make=${makeBus}&model= ${modelBus}&permit_issuer=  ${issuerBus}&permit_issue_date=  ${issuerDateBus}&permit_expiry_date=  ${expiryBus}&last_maintenance_date=  ${lastBus}&next_maintenance_date=  ${nextBus}&assigned_driver=  ${driverBus}`, {
+//         method: 'POST',
+//         body: JSON.stringify({
+//             nameBus,
+//             licenseBus,
+//             capacityBus,
+//             makeBus,
+//             modelBus,
+//             issuerBus,
+//             issuerDateBus,
+//             expiryBus,
+//             lastBus,
+//             nextBus
+//         }),
+//         headers: {
+//             'Content-Type': 'application/json'
+//             // You may need to add other headers if required by your API
+//         }
+//     })
+//     .then(response => response.json())
+//     .then(responseData => {
+//         if (responseData.success) {
+//             // Update form fields with updated data
+//             document.getElementById('name').value = responseData.name;
+//             document.getElementById('license').value = responseData.license;
+//             document.getElementById('issuer').value = responseData.issuer;
+//             document.getElementById('issuerDate').value = responseData.issuerDate;
+//             document.getElementById('expiry').value = responseData.expiry;
+//             document.getElementById('last').value = responseData.last;
+//             document.getElementById('next').value = responseData.next;
+//         } else {
+//             // Handle error message
+//             alert('Error updating user details');
+//         }
+//     });
 
-    return false;
-}
+//     return false;
+// }
 
 
   

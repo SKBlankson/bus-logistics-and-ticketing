@@ -237,15 +237,15 @@
 
             // Send a PATCH request with form data
             // console.log(driverId)
-            // if (formData.entries().next().done) {
-            //     console.log('FormData is empty');
-            // } else {
-            //     // Logging FormData contents
-            //     for (const pair of formData.entries()) {
-            //         console.log(pair[0] + ', ' + pair[1]);
-            //     }
+            if (formData.entries().next().done) {
+                console.log('FormData is empty');
+            } else {
+                // Logging FormData contents
+                for (const pair of formData.entries()) {
+                    console.log(pair[0] + ', ' + pair[1]);
+                }
             
-            // }
+            }
             fetch(`http://127.0.0.1:8000/drivers/updatedriver?employee_id=${driverId}`, {
                 method: 'PATCH',
                 body: formData,
