@@ -597,7 +597,7 @@ function handleAddBusSave() {
         }
     })
     .then(response => {
-                console.log(response); // Add this line
+                location.reload();
                 return response.json();
             })
     .then(responseData => {
@@ -644,7 +644,9 @@ function handleBusSave() {
             // 'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
         },
     })
-    .then(response => response.json())
+    .then(response => {
+        location.reload();
+        return response.json()})
     .then(responseData => {
         if (responseData.success) {
             // Handle success, update form fields with updated data

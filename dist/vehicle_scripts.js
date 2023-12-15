@@ -75,18 +75,13 @@ headers: {
 })
 .then(response => {
         console.log(response); // Add this line
+        location.reload();
         return response.json();
     })
 .then(responseData => {
 if (responseData.success) {
     // Update form fields with updated data
-    document.getElementById('name').value = responseData.name;
-    document.getElementById('license').value = responseData.license;
-    document.getElementById('issuer').value = responseData.issuer;
-    document.getElementById('issuerDate').value = responseData.issuerDate;
-    document.getElementById('expiry').value = responseData.expiry;
-    document.getElementById('last').value = responseData.last;
-    document.getElementById('next').value = responseData.next;
+   
 } else {
     // Handle error message
     alert('Error updating user details');
@@ -150,6 +145,7 @@ function handleCarSave(license) {
     })
     .then(response => {
                 console.log(response); // Add this line
+                location.reload();
                 return response.json();
             })
     .then(responseData => {
@@ -740,10 +736,12 @@ function handleAddBusSave() {
     })
     .then(response => {
                 console.log(response); // Add this line
+                location.reload();
                 return response.json();
             })
     .then(responseData => {
         if (responseData.success) {
+
             // Update form fields with updated data
         //     document.getElementById('name').value = responseData.name;
         //     // document.getElementById('license').value = responseData.license;
@@ -813,11 +811,12 @@ function handleAddCarSave() {
         }
     })
     .then(response => {
-                console.log(response); // Add this line
+                location.reload();
                 return response.json();
             })
     .then(responseData => {
         if (responseData.success) {
+
             // Update form fields with updated data
         //     document.getElementById('name').value = responseData.name;
         //     // document.getElementById('license').value = responseData.license;
