@@ -425,6 +425,9 @@
             console.log(stopNameInput.id);
     
             // Create input for cost
+            const costDiv = document.createElement('div');
+            costDiv.setAttribute('class', 'flex items-center justify-between');
+
             const costLabel = document.createElement('label');
             costLabel.setAttribute('for', 'cost');
             costLabel.textContent = 'Cost:';
@@ -434,11 +437,31 @@
             costInput.name = '';
             costInput.id = 'cost-'+i;
             costInput.classList.add('mb-3', 'bg-gray-200');
+
+            // Create SVG element
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            svg.setAttribute("width", "16");
+            svg.setAttribute("height", "16");
+            svg.setAttribute("viewBox", "0 0 16 16");
+
+            // Create path element
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("fill", "currentColor");
+            path.setAttribute("d", "M2 7.75A.75.75 0 0 1 2.75 7h10a.75.75 0 0 1 0 1.5h-10A.75.75 0 0 1 2 7.75Z");
+
+            // Append path to SVG
+            svg.appendChild(path);
+
+            costDiv.appendChild(costLabel);
+            costDiv.appendChild(costInput);
+            costDiv.appendChild(svg);
     
             stopDetailsSpan.appendChild(stopNameLabel);
             stopDetailsSpan.appendChild(stopNameInput);
             stopDetailsSpan.appendChild(document.createElement('br'));
             stopDetailsSpan.appendChild(document.createElement('br'));
+            // stopDetailsSpan.appendChild(costDiv);
             stopDetailsSpan.appendChild(costLabel);
             stopDetailsSpan.appendChild(costInput);
     

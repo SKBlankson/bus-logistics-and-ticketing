@@ -337,7 +337,7 @@
 
 // Function to render data in cards
 async function renderData() {
-    const container = document.getElementById('container'); // Change to your actual container ID
+    const container = document.getElementById('container'); 
     container.classList.add('flex', 'flex-col')
     const data = await fetchData();
     // const buses = await fetchBusesData();
@@ -369,7 +369,7 @@ async function renderData() {
 
         // Create elements for driver details (adjust as needed)
         const image = document.createElement('img');
-        // image.src = 'driver.png'; // Replace with actual image path or URL
+        image.src = 'driver.jpg'; // Replace with actual image path or URL
         image.alt = '';
         image.classList.add('w-72', 'h-52')
 
@@ -407,7 +407,7 @@ async function renderData() {
         const fnameLabel = document.createElement("label");
         fnameLabel.setAttribute("for", "fname");
         fnameLabel.textContent = "First Name:";
-        fnameLabel.classList.add(`fname-label-${driver.employee_id}`);
+        fnameLabel.classList.add(`fname-label-${driver.employee_id}`, 'font-semibold');
         fnameLabel.style.display = 'none';
 
         
@@ -439,6 +439,7 @@ async function renderData() {
         const assignedToLabel = document.createElement("label");
         assignedToLabel.setAttribute("for", "bus");
         assignedToLabel.textContent = "Assigned to:";
+        assignedToLabel.classList.add('font-semibold');
         // form.appendChild(assignedToLabel);
 
         const buses = document.createElement("div");
@@ -466,6 +467,8 @@ async function renderData() {
         const licenseLabel = document.createElement("label");
         licenseLabel.setAttribute("for", `license-${driver.employee_id}`);
         licenseLabel.textContent = "License Number:";
+        licenseLabel.classList.add('font-semibold');
+
 
         const licenseInput = document.createElement("input");
         licenseInput.setAttribute("type", "text");
@@ -477,6 +480,8 @@ async function renderData() {
         const expiryLabel = document.createElement("label");
         expiryLabel.setAttribute("for", `expiry-${driver.employee_id}`);
         expiryLabel.textContent = "License Expiry Date:";
+        expiryLabel.classList.add('font-semibold');
+
 
         const expiryInput = document.createElement("input");
         expiryInput.setAttribute("type", "date");
@@ -489,6 +494,8 @@ async function renderData() {
         const contactLabel = document.createElement("label");
         contactLabel.setAttribute("for", `contact-${driver.employee_id}`);
         contactLabel.textContent = "Contact:";
+        contactLabel.classList.add('font-semibold');
+
         
         const contactInput = document.createElement("input");
         contactInput.setAttribute("type", "tel");
@@ -497,12 +504,14 @@ async function renderData() {
         contactInput.setAttribute("disabled", "");
         contactInput.setAttribute("name", "momo_number")
         // console.log()
-        console.log(contactInput.id);
+        // console.log(contactInput.id);
         
         // Create and append a label and input element for "Address"
         const addressLabel = document.createElement("label");
         addressLabel.setAttribute("for", `address-${driver.employee_id}`);
         addressLabel.textContent = "Address:";
+        addressLabel.classList.add('font-semibold');
+
 
         const addressInput = document.createElement("input");
         addressInput.setAttribute("type", "text");
