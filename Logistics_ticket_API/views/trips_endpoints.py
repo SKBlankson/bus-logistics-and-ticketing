@@ -314,11 +314,7 @@ def get_trips(request) -> HttpResponse | JsonResponse:
         stop_list = SemesterScheduleStop.objects.filter(schedule__schedule_id=schedule_id).order_by('departure_time')
 
         for stop in stop_list:
-            stops.append({
-                "stop_name": stop.stop.stop_name,
-                # "stop_cost": stop.stop.cost,
-                # "stop_departure_time": stop.departure_time
-            })
+            stops.append(stop.stop.stop_name)
 
         # Get capacity for trip
         tickets_booked = trip.booked_tickets
@@ -445,6 +441,10 @@ def book_trip(request) -> HttpResponse:
 
 
     # payment
+    if helpers.pay_for_ticket(user, ticket_price):
+        pass
+    else:
+        return HttpResponse(content="Failed to purchase ticket", status=500)
 
     # Create ticket
     new_ticket = Ticket(trip_id=user_tripid,
@@ -495,6 +495,52 @@ def book_trip(request) -> HttpResponse:
 
     # return HttpResponse()
 
+def get_semester_schedule(request) -> HttpResponse | JsonResponse:
+    """
+    Gets the semester schedule
+    :param request:
+    :return:
+    """
+
+    trip_list = SemesterSchedule.objects.all()
+    data = []
+    for trip in trip_list:
+        stops = []
+        stops_query = SemesterScheduleStop.objects.filter(schedule_id=trip.schedule_id)
+
+        for stop in stops_query:
+            stop_obj = {
+                'stop_id' : stop.stop_id,
+                'arrival_time': stop.arrival_time,
+            }
+            stops.append(stop_obj)
+
+        trip_obj ={
+            'schedule_id' : trip.schedule_id,
+            'departure_time': trip.departure_time,
+            'arrival_time': trip.arrival_time,
+            'assigned_driver': [trip.assigned_driver.employee.employee_id,
+                                trip.assigned_driver.employee.f_name + " " +
+                                trip.assigned_driver.employee.l_name],
+            'driver_contact': trip.assigned_driver.employee.momo_number,
+            'stops' : stops
+        }
+
+        data.append(trip_obj)
+
+    return JsonResponse({'trips':data}, status=200)
+
+
+def edit_semester_schedule(request) -> HttpResponse:
+    """
+    Edits the semester schedule
+    :param request:
+    :return:
+    """
+
+    schedule_id = request.query_params.get('schedule_id')
+    semsched_id = request.query_params.get()
+    return HttpResponse()
 
 
 

@@ -157,13 +157,13 @@ WSGI_APPLICATION = 'AshesiLogisticsAPI.wsgi.application'
 #         'PASSWORD': db_password,
 #         'HOST': AZURE_MYSQL_HOST,
 #         # 'PORT': 3306,
-#
-#         # # 'client_flags': [mysql.connector.ClientFlag.SSL],
-#         'OPTIONS': {
-#             'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
-#             # Add any additional SSL options here if needed
-#         },
-#         # 'OPTIONS': {'sslmode': 'require'},
+# #
+# #         # # 'client_flags': [mysql.connector.ClientFlag.SSL],
+# #         'OPTIONS': {
+# #             'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
+# #             # Add any additional SSL options here if needed
+# #         },
+# #         # 'OPTIONS': {'sslmode': 'require'},
 #     }
 # }
 
@@ -174,7 +174,6 @@ WSGI_APPLICATION = 'AshesiLogisticsAPI.wsgi.application'
 
 # system-assigned managed identity
 cred = ManagedIdentityCredential()
-
 accessToken = cred.get_token('https://ossrdbms-aad.database.windows.net/.default')
 
 
@@ -183,7 +182,8 @@ database = os.getenv('AZURE_MYSQL_NAME')
 user = os.getenv('AZURE_MYSQL_USER')
 password = accessToken.token # this is accessToken acquired from above step.
 
-print(cred)
+# load_dotenv()
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -191,9 +191,9 @@ DATABASES = {
         'USER': user,
         'PASSWORD': password,
         'HOST': host,
-        'PORT': 3306,
+        # 'PORT': 3306,
 
-        # # 'client_flags': [mysql.connector.ClientFlag.SSL],
+        # 'client_flags': [mysql.connector.ClientFlag.SSL],
         # 'OPTIONS': {
         #     'ssl': {'ca': './DigiCertGlobalRootCA.crt.pem'},
         #     # Add any additional SSL options here if needed

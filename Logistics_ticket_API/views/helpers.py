@@ -164,35 +164,54 @@ def time_plus(time, timedelta):
     return end.time()
 
 
-def pay_for_ticket():
-    # import requests
-    # load_dotenv()
-    url = "https://paybox.com.co/pay"
+def pay_for_ticket(user: AshesiEmployee, ticket_price) -> bool:
+    """
+    Sends a payment request to the paystack api
+    :param user:
+    :return: Returns True if payment successful, and False if not
+    """
+    user_email = user.ashesi_email
+    user_number = user.momo_number
+    user_network = user.momo_network
 
-    payload = {'order_id': '123456',
-               'currency': 'GHS',
-               'amount': '1.0',
-               'mode': 'Test',
-               'mobile_network': 'AirtelTigo',
-               'voucher_code': '2314',
-               'mobile_number': '+233556207957',
-               # 'payload': '{"key":"data"}',
-               'payerName': 'John Doe',
-               'payerPhone': '+233',
-               'payerEmail': 'samuel.blankson@ashesi.edu.gh',
-               'customer_id': 'c-12345',
-               'callback_url': ''}
-    files = [
-
-    ]
+    url = os.getenv('paylink')
     headers = {
-        'Authorization': os.getenv('payment_token'),
+        "Authorization": os.getenv('payment_token')
     }
 
-    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    data = {
+        "email": user_email,
+        "amount": str(ticket_price*100),
+        "metadata": {
+            "custom_fields": [
+                {
+                    "value": user.f_name + " " + user.l_name,
+                    "display_name": "Bus ticket confirmation for:",
+                    "variable_name": "ticket_for"
+                }
+            ]
+        },
+        "mobile_money": {
+            "phone": '0551234987',
+            "provider": user_network
+        }
 
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+    response_json = response.json()
+    status = response_json.get("data", {}).get("status", None)
+
+    # Print the response status code and content (you can modify this based on your needs)
+    print(f"Status Code: {response.status_code}")
+    print("Response Content:")
     print(response.text)
 
+
+    if status == 'success':
+        return True
+    else:
+        return False
 # pay_for_ticket()
 
 
