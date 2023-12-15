@@ -65,7 +65,7 @@ if (formData.entries().next().done) {
     }
 
 // Make API request
-fetch(`http://127.0.0.1:8000/vehicles/editvehicle?license_plate=${license}`, {
+fetch(`https://ashesilogisticsticketingapi.azurewebsites.net//vehicles/editvehicle?license_plate=${license}`, {
 method: 'PATCH',
 body: formData,
 headers: {
@@ -140,7 +140,7 @@ function handleCarSave(license) {
             }
 
     // Make API request
-    fetch(`http://127.0.0.1:8000/vehicles/editvehicle?license_plate=${license}`, {
+    fetch(`https://ashesilogisticsticketingapi.azurewebsites.net//vehicles/editvehicle?license_plate=${license}`, {
         method: 'PATCH',
         body: formData,
         headers: {
@@ -178,7 +178,7 @@ function handleCarSave(license) {
 // Function to fetch data from the API
 async function fetchBusesData() {
     try {
-        const response = await fetch('http://127.0.0.1:8000/vehicles/getallbusses');
+        const response = await fetch('https://ashesilogisticsticketingapi.azurewebsites.net//vehicles/getallbusses');
         const data = await response.json();
         return data;
     } catch (error) {
@@ -187,7 +187,7 @@ async function fetchBusesData() {
 }
 async function fetchBusData(licensePlate) {
     try {
-        const url = `http://127.0.0.1:8000/vehicles/getvehicle?license_plate=${encodeURIComponent(licensePlate)}`;
+        const url = `https://ashesilogisticsticketingapi.azurewebsites.net//vehicles/getvehicle?license_plate=${encodeURIComponent(licensePlate)}`;
         const response = await fetch(url);
         const data = await response.json();
         return data;
@@ -309,7 +309,7 @@ renderBusData();
 
 async function fetchCarsData() {
     try {
-        const response = await fetch('http://127.0.0.1:8000/vehicles/getallprivate');
+        const response = await fetch('https://ashesilogisticsticketingapi.azurewebsites.net//vehicles/getallprivate');
         const data = await response.json();
         return data;
     } catch (error) {
@@ -318,7 +318,7 @@ async function fetchCarsData() {
 }
 async function fetchCarData(licensePlate) {
     try {
-        const url = `http://127.0.0.1:8000/vehicles/getvehicle?license_plate=${encodeURIComponent(licensePlate)}`;
+        const url = `https://ashesilogisticsticketingapi.azurewebsites.net//vehicles/getvehicle?license_plate=${encodeURIComponent(licensePlate)}`;
         const response = await fetch(url);
         const data = await response.json();
         return data;
@@ -428,7 +428,7 @@ renderCarData();
 
 async function fetchDrivers() {
     try {
-        const url = `http://127.0.0.1:8000/drivers/alldrivers`;
+        const url = `https://ashesilogisticsticketingapi.azurewebsites.net//drivers/alldrivers`;
         const response = await fetch(url);
         const data = await response.json();
         return data;
@@ -438,7 +438,7 @@ async function fetchDrivers() {
 }
 async function fetchBus(license) {
     try {
-        const url = `http://127.0.0.1:8000/vehicles/getvehicle?license_plate=${license}`;
+        const url = `https://ashesilogisticsticketingapi.azurewebsites.net//vehicles/getvehicle?license_plate=${license}`;
         const response = await fetch(url);
         const data = await response.json();
         return data;
@@ -730,7 +730,7 @@ function handleAddBusSave() {
             }
 
     // Make API request
-    fetch(`http://127.0.0.1:8000/vehicles/addvehicle?license_plate=${license}`, {
+    fetch(`https://ashesilogisticsticketingapi.azurewebsites.net//vehicles/addvehicle?license_plate=${license}`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -804,7 +804,7 @@ function handleAddCarSave() {
             }
 
     // Make API request
-    fetch(`http://127.0.0.1:8000/vehicles/addvehicle?license_plate=${license}`, {
+    fetch(`https://ashesilogisticsticketingapi.azurewebsites.net//vehicles/addvehicle?license_plate=${license}`, {
         method: 'POST',
         body: formData,
         headers: {
