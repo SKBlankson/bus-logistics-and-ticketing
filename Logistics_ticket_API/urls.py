@@ -42,6 +42,8 @@ urlpatterns = [
     path('trips/booktrip', trips_endpoints.book_trip),
     path('auth/signup', auth_endpoints.signup),
     path('auth/login', auth_endpoints.login),
-    path('trips/getsemesterschedule', trips_endpoints.get_semester_schedule)
+    path('trips/getsemesterschedule', trips_endpoints.get_semester_schedule),
+    path('trips/gettickethistory', trips_endpoints.get_ticket_history),
+    
 
 ]
