@@ -380,11 +380,14 @@ def create_daily_trips(request) -> HttpResponse:
         completed = 0
 
         for trip in semester_schedule:
+            driver_name = trip.assigned_driver.employee.f_name + ' ' \
+                          + trip.assigned_driver.employee.l_name
             new_trip = Trip(
                 trip_id = str(current_date) + str(completed),
                 schedule= trip,
                 trip_date=current_date,
-                assigned_driver=trip.assigned_driver,
+                assigned_driver=[trip.assigned_driver.employee.employee_id,
+                driver_name],
                 assigned_vehicle=trip.assigned_vehicle
             )
             new_trip.save()
@@ -460,7 +463,8 @@ def book_trip(request) -> HttpResponse:
     confirmation = {
         "license_plate": trip.assigned_vehicle.license_plate,
         "ticket_rice": ticket_price,
-        "ticket_number": new_ticket.ticket_id
+        "ticket_number": new_ticket.ticket_id,
+        "ticket_date": new_ticket.purchase_date
     }
 
     return JsonResponse(confirmation,status= 200)
@@ -517,7 +521,10 @@ def get_semester_schedule(request) -> HttpResponse | JsonResponse:
 
         trip_obj ={
             'schedule_id' : trip.schedule_id,
+            'time_of_day' :trip.time_period,
             'departure_time': trip.departure_time,
+            'pickup_loccation': trip.pickup_location,
+            'dropoff_location': trip.final_destination,
             'arrival_time': trip.arrival_time,
             'assigned_driver': [trip.assigned_driver.employee.employee_id,
                                 trip.assigned_driver.employee.f_name + " " +
@@ -539,8 +546,50 @@ def edit_semester_schedule(request) -> HttpResponse:
     """
 
     schedule_id = request.query_params.get('schedule_id')
-    semsched_id = request.query_params.get()
+    semsched_id = request.query_params.get(schedule_id = schedule_id)
+
+
     return HttpResponse()
+
+
+def get_ticket_history(request) -> HttpResponse | JsonResponse:
+    """
+    Returns the ticket history of a client
+    :param request:
+    :return:
+    """
+
+    # Get user details
+    token_key = request.headers.get('Authorization').split(' ')[1]
+
+    # Fetch the token object from the database
+    try:
+        token = Token.objects.get(key=token_key)
+    except Token.DoesNotExist:
+        # Handle the case where the token is not valid
+        return HttpResponse(content="Invalid User!", status=401)
+
+    user = token.user
+    userTickets = Ticket.objects.filter(employee_id=user.employee_id)
+    tickets = []
+
+    if not userTickets.exists():
+        return HttpResponse(content='No previous purchases', status=200)
+
+    for ticket in userTickets:
+        data = {
+            'license_plate': ticket.trip.assigned_vehicle.license_plate,
+            'ticket_price': ticket.ticket_price,
+            'ticket_number': ticket.ticket_id,
+            'ticket_date': ticket.purchase_date
+        }
+        tickets.append(ticket)
+
+    return JsonResponse({'tickets':data}, status=200)
+
+
+
+
 
 
 
