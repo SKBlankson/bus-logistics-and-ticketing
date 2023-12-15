@@ -326,16 +326,7 @@
          }
 
 
- async function fetchData() {
-    try {
-        const url = `http://127.0.0.1:8000/drivers/alldrivers`;
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
+ 
 
 // Function to render data in cards
 async function renderData() {

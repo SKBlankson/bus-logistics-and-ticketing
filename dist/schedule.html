@@ -54,30 +54,150 @@
                     </span>
                     <span class="shadow-xl mr-10 flex flex-row px-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#011936" stroke-width="2" d="M14 0v3M1 7h18M6 0v3m-2 8h2m2 0h8M4 15h2m2 0h6m-2 4H1V3h18v10m0 2v9m-4-7l8 5m0-5l-8 5"/></svg>
-                        <button class="pl-2" id="new">New Schedule</button>
+                        <button class="pl-2" id="new">New Trip</button>
                     </span>
                 </div>
                 <div class="mt-10 flex justify-center text-3xl text-blue font-semibold">Transportation Schedule from Monday, October 16th </div>
-                <div class="mx-10 h-full flex justify-center mt-28 bg-gray-300">
-                    <div class=" w-4/6 h-96 rounded-lg flex justify-center underline">
-                        Morning Trips
+                <div class="mx-10 h-full flex justify-center mt-12 bg-gray-200 overflow-y-auto">
+                    <div class=" w-4/6 h-96 rounded-lg flex flex-col items-center " id="container">
+                        <div id="morning" class="flex flex-col items-center">
+                            <p class="underline text-lg font-semibold">Morning Trips</p>
+                            <div id="card">
+                                <p id="title" class="font-semibold">Christ the King Premises (CTK) to Berekuso:</p>
+                                <form action="" class="flex flex-col items-center">
+                                    <label for="depart">Departure Time:</label><input type="text" name="" id="depart">
+
+                                    <label for="arrival">Arrival at Destination:</label>
+                                    <input type="text" name="" id="arrival">
+
+                                    <label for="driver">Assigned Driver:</label>
+                                    <input type="text" name="" id="driver">
+
+                                    <label for="contact">Driver Contact:</label>
+                                    <input type="text" name="" id="contact">
+                                    
+                                    <p class="font-semibold">Stops:</p>
+                                    <ol>
+                                        <li>
+                                            <input type="text" id="stopName">
+                                            <p>:</p>
+                                            <input type="text" id="stopTime">
+                                        </li>
+                                        <li>
+                                            <input type="text" id="stopName">
+                                            <p>:</p>
+                                            <input type="text" id="stopTime">
+                                        </li>
+                                    </ol>
+
+
+
+                                </form>
+                            </div>
+                            <div class="mb-5 w-full flex flex-col items-center">
+                                <button class=" flex items-center mt-5 ml-3 w-1/2 shadow-lg py-2 rounded-lg justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"/></svg>
+                                    <p>Add a Trip</p>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="afternoon" class="flex flex-col items-center">
+                            <p class="underline text-lg font-semibold">Afternoon Trips</p>
+                            <div>
+                                <p id="title" class="font-semibold">Christ the King Premises (CTK) to Berekuso:</p>
+                                <form action="" class="flex flex-col items-center">
+                                    <label for="depart">Departure Time:</label><input type="text" name="" id="depart">
+
+                                    <label for="arrival">Arrival at Destination:</label>
+                                    <input type="text" name="" id="arrival">
+
+                                    <label for="driver">Assigned Driver:</label>
+                                    <input type="text" name="" id="driver">
+
+                                    <label for="contact">Driver Contact:</label>
+                                    <input type="text" name="" id="contact">
+                                    
+                                    <p class="font-semibold">Stops:</p>
+                                    <ol>
+                                        <li>
+                                            <input type="text" id="stopName">
+                                            <p>:</p>
+                                            <input type="text" id="stopTime">
+                                        </li>
+                                        <li>
+                                            <input type="text" id="stopName">
+                                            <p>:</p>
+                                            <input type="text" id="stopTime">
+                                        </li>
+                                    </ol>
+
+
+
+                                </form>
+                            </div>
+                            <div class="mb-5 w-full flex flex-col items-center">
+                                <button class=" flex items-center mt-5 ml-3 w-1/2 shadow-lg py-2 rounded-lg justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"/></svg>
+                                    <p>Add a Trip</p>
+                                </button>
+                        </div>
+                        <div id="evening" class="flex flex-col items-center">
+                            <p class="underline text-lg font-semibold">Evening Trips</p>
+                            <div>
+                                <p id="title" class="font-semibold">Christ the King Premises (CTK) to Berekuso:</p>
+                                <form action="" class="flex flex-col items-center">
+                                    <label for="depart">Departure Time:</label><input type="text" name="" id="depart">
+
+                                    <label for="arrival">Arrival at Destination:</label>
+                                    <input type="text" name="" id="arrival">
+
+                                    <label for="driver">Assigned Driver:</label>
+                                    <input type="text" name="" id="driver">
+
+                                    <label for="contact">Driver Contact:</label>
+                                    <input type="text" name="" id="contact">
+                                    
+                                    <p class="font-semibold">Stops:</p>
+                                    <ol>
+                                        <li>
+                                            <input type="text" id="stopName">
+                                            <p>:</p>
+                                            <input type="text" id="stopTime">
+                                        </li>
+                                        <li>
+                                            <input type="text" id="stopName">
+                                            <p>:</p>
+                                            <input type="text" id="stopTime">
+                                        </li>
+                                    </ol>
+
+
+
+                                </form>
+                            </div>
+                            <div class="mb-5 w-full flex flex-col items-center">
+                                <button class=" flex items-center mt-5 ml-3 w-1/2 shadow-lg py-2 rounded-lg justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"/></svg>
+                                    <p>Add a Trip</p>
+                                </button>
+                        </div>
                     </div>
-                </div>
-                <div class="flex justify-end mt-8 mb-5">
-                    <a href="#" class="shadow-xl mr-10 flex flex-row p-3 bg-delete rounded-xl text-white" >Delete Schedule</a>
                 </div>
             </div>
         </div>
+        <div class="flex justify-end mt-8 mb-5">
+            <a href="#" class="shadow-xl mr-10 flex flex-row p-3 bg-delete rounded-xl text-white" >Delete Schedule</a>
+        </div>
     </div>
     <div class="hidden overscroll-none absolute inset-0 bg-black bg-opacity-50" id="newSchedule">
-        <div class="absolute w-1/2 h-5/6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg" >
+        <div class="absolute w-1/2 h-5/6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg overflow-auto" >
             <span  class="flex justify-end mr-2 mt-2"><button id="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#011936" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 7l10 10M7 17L17 7"/></svg></button></span>
 
             <p class="flex justify-center mt-2 font-bold text-2xl">Schedule</p>
 
             
                 <div>
-                    <form action="" class="mt-3 mr-5" >
+                    <form action="" class="mt-3 mr-5" id="newTrip">
                         <span class="ml-5">
                             <label for="title">Title: *</label>
                             <input type="text" id="title">
@@ -100,9 +220,7 @@
                                 <br><br>
                                 <label for="bus"> Assigned Bus: *</label>
                                 <select name="" id="bus" required class="bg-gray-200">
-                                    <option value="white">White Coaster - GX-1234-56</option>
-                                    <option value="afternoon">Afternoon</option>
-                                    <option value="evening">Evening</option>
+                                    
                                 </select>
                                 
                             </div>
@@ -116,19 +234,20 @@
                                 <input type="text" name="" id="arrive" class="bg-gray-200">
                                 <br><br>
                                 <label for="driver"> Assigned Driver: *</label>
-                                <select name="" id="driver" required class="bg-gray-200">
-                                    <option value="mr wullie">Mr Wullie</option>
-                                    <option value="afternoon">Afternoon</option>
-                                    <option value="evening">Evening</option>
+                                <select name="" id="driverr" required class="bg-gray-200">
+                                
                                 </select>
                             </div>
                         </div>
                     
                         <p class="mt-3 text-gray-500 font-semibold ml-5">Stops</p>
-                        <div class="grid grid-cols-2 gap-5 pl-5 pr-5">
+                        <div class="grid grid-cols-2 gap-5 pl-5 pr-5" id="stopDiv">
                             <span>
-                                <label for="stop1"> Stop 1: *</label>
+                                <label for="stop1"> Stop: *</label>
                                 <input type="text" name="" id="stop1" required class="bg-gray-200">
+                                <br><br>
+                                <label for="cost">Cost:</label>
+                                <input type="text" name="" id="cost">
             
                             </span>
                             <span>
@@ -140,16 +259,16 @@
                 </form>
         
             <div class="flex justify-center">
-                <a href="" class="flex items-center justify-center rounded-lg py-2 mt-5 w-1/2 shadow-lg">
+                <button id="addStopButton" class="flex items-center justify-center rounded-lg py-2 mt-5 w-1/2 shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"/></svg>
                     <p>Add a Stop</p>
-                </a>
+                </button>
             </div>
-            <div class="mb-10">
-                <a href="" class="flex items-center mt-5 ml-3 w-1/2 shadow-lg py-2 rounded-lg justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"/></svg>
-                    <p>Add a Trip</p>
-                </a >
+            <div class="mb-10 flex justify-end">
+                <button class="flex items-center mt-5 ml-3 w-1/2 shadow-lg py-2 rounded-lg justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3s3 1.34 3 3s-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                    <p>Save</p>
+                </button >
             </div>
 
 
@@ -173,6 +292,359 @@
                 newSchedule.style.display = "none";
             }
         }
+
+        async function fetchBusesData() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/vehicles/getallbusses');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        async function busDropdown(){
+            const data = await fetchBusesData();
+            if (!data) {
+                return;
+            }
+
+            const buses = document.getElementById('bus');
+
+            data.bus_list.forEach(bus => {
+                const option = document.createElement('option');
+                option.value = bus.license_plate;
+                option.textContent = bus.descriptive_name;
+                buses.appendChild(option);
+            });
+
+        }
+
+        busDropdown();
+
+        async function fetchDrivers() {
+            try {
+                const url = `http://127.0.0.1:8000/drivers/alldrivers`;
+                const response = await fetch(url);
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        async function driverDropdown(){
+            const data = await fetchDrivers();
+            if (!data) {
+                return;
+            }
+
+            const drivers = document.getElementById('driverr');
+
+            data.Drivers.forEach(driver => {
+                const option = document.createElement('option');
+                option.value = driver.employee_id;
+                option.textContent = driver.driver_fname+ ' '+ driver.driver_lname;
+                drivers.appendChild(option);
+            });
+
+        }
+
+        driverDropdown();
+
+        // Function to create a new stop div
+        function createStopDiv() {
+        // Create stop div
+        const stopDiv = document.createElement('div');
+        stopDiv.classList.add('grid', 'grid-cols-2', 'gap-5', 'pl-5', 'pr-5');
+
+        // Create span for stop details
+        const stopDetailsSpan = document.createElement('span');
+
+        // Create input for stop name
+        const stopNameLabel = document.createElement('label');
+        stopNameLabel.setAttribute('for', 'stop');
+        stopNameLabel.textContent = 'Stop: *';
+
+        const stopNameInput = document.createElement('input');
+        stopNameInput.type = 'text';
+        stopNameInput.name = '';
+        stopNameInput.id = 'stop';
+        stopNameInput.required = true;
+        stopNameInput.classList.add('bg-gray-200');
+
+        // Create input for cost
+        const costLabel = document.createElement('label');
+        costLabel.setAttribute('for', 'cost');
+        costLabel.textContent = 'Cost:';
+
+        const costInput = document.createElement('input');
+        costInput.type = 'text';
+        costInput.name = '';
+        costInput.id = 'cost';
+
+        stopDetailsSpan.appendChild(stopNameLabel);
+        stopDetailsSpan.appendChild(stopNameInput);
+        stopDetailsSpan.appendChild(document.createElement('br'));
+        stopDetailsSpan.appendChild(document.createElement('br'));
+        stopDetailsSpan.appendChild(costLabel);
+        stopDetailsSpan.appendChild(costInput);
+
+        // Create span for arrival time
+        const arrivalTimeSpan = document.createElement('span');
+
+        const arrivalTimeLabel = document.createElement('label');
+        arrivalTimeLabel.setAttribute('for', 'stopArrive');
+        arrivalTimeLabel.textContent = 'Arrival Time *';
+
+        const arrivalTimeInput = document.createElement('input');
+        arrivalTimeInput.type = 'text';
+        arrivalTimeInput.name = '';
+        arrivalTimeInput.id = 'stopArrive';
+        arrivalTimeInput.required = true;
+        arrivalTimeInput.classList.add('bg-gray-200');
+
+        arrivalTimeSpan.appendChild(arrivalTimeLabel);
+        arrivalTimeSpan.appendChild(arrivalTimeInput);
+
+        stopDiv.appendChild(stopDetailsSpan);
+        stopDiv.appendChild(arrivalTimeSpan);
+
+        const mainForm = document.getElementById('newTrip'); 
+        mainForm.insertBefore(stopDiv, mainForm.lastElementChild);
+        }
+
+        const addStopButton = document.getElementById('addStopButton'); // Update with your actual button ID
+        addStopButton.addEventListener('click', createStopDiv);
+
+        function submitForm() {
+            // Collect form data
+            const formData = {
+                inputField: document.getElementById('inputField').value,
+                // Add other form fields as needed
+            };
+
+            // Convert form data to JSON
+            const jsonData = JSON.stringify(formData);
+
+            // Make the fetch request
+            fetch('https://ashesilogisticsticketingapi.azurewebsites.net/trips/createsemestertrip', {
+                method: 'POST',  
+                headers: {
+                    'Content-Type': 'application/json',  // Specify the content type as JSON
+                    // Add any other headers required by your API
+                },
+                body: jsonData,  // Send the JSON data as the request body
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();  // Parse the JSON response
+                })
+                .then(data => {
+                    // Handle the data returned by the API
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Fetch error:', error);
+                });
+        }
+
+        // const modalContainer = document.getElementById('page');
+
+        // // Create modal elements
+        // const modalOverlay = document.createElement('div');
+        // modalOverlay.classList.add('hidden', 'overscroll-none', 'absolute', 'inset-0', 'bg-black', 'bg-opacity-50');
+        // modalOverlay.id = 'newSchedule';
+
+        // const modalContent = document.createElement('div');
+        // modalContent.classList.add('absolute', 'w-1/2', 'h-5/6', 'top-1/2', 'left-1/2', 'transform', '-translate-x-1/2', '-translate-y-1/2', 'bg-white', 'rounded-lg');
+
+        // const headSpan = document.createElement('span');
+        // headSpan.setAttribute('class', 'flex justify-end mr-2 mt-2')
+
+        // const closeButton = document.createElement('button');
+        // closeButton.id = 'close';
+        // closeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#011936" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 7l10 10M7 17L17 7"/></svg>';
+        // closeButton.addEventListener('click', function () {
+        //     modalOverlay.classList.add('hidden');
+        // });
+
+        // headSpan.appendChild(closeButton);
+
+        // const title = document.createElement('p');
+        // title.classList.add('flex', 'justify-center', 'mt-2', 'font-bold', 'text-2xl');
+        // title.textContent = 'Schedule';
+
+        // const randDiv = document.createElement('div');
+
+        // const form = document.createElement('form');
+        // form.action = '';
+        // form.classList.add('mt-3', 'mr-5');
+
+        // const titleSpan = document.createElement('span');
+        // titleSpan.classList.add('ml-5');
+
+        // const titleLabel = document.createElement('label');
+        // titleLabel.setAttribute('for', 'title');
+
+        // const titleInput = document.createElement('input');
+        // titleInput.type='text';
+        // titleInput.id = 'title';
+
+        // titleSpan.appendChild(titleLabel);
+        // titleSpan.appendChild(titleInput);
+
+        // const tripTopic = document.createElement('p');
+        // tripTopic.setAttribute('class', 'mt-8 text-gray-500 font-semibold ml-5 text-lg');
+        // tripTopic.innerHTML+='Trip Details';
+
+        // const gridContainer = document.createElement('div');
+        // gridContainer.classList.add('grid', 'grid-cols-2', 'gap-6', 'pl-5', 'pr-5');
+
+        // // Create time of day div
+        // const timeOfDayDiv = document.createElement('div');
+
+        // const timeLabel = document.createElement('label');
+        // timeLabel.setAttribute('for', 'time');
+        // timeLabel.textContent = 'Time of Day: '
+
+        // const timeInput = document.createElement('select');
+        // timeInput.setAttribute('id', 'time');
+        // timeInput.setAttribute('required', '');
+
+        // const morn = document.createElement('option');
+        // morn.value = 'Morning';
+        // morn.textContent = 'Morning';
+
+        // const after = document.createElement('option');
+        // after.value = 'Afternoon';
+        // after.textContent = 'Afternoon';
+
+        // const eve = document.createElement('option');
+        // eve.value = 'Evening'
+        // eve.textContent = 'Evening'
+
+        // timeInput.appendChild(morn);
+        // timeInput.appendChild(after);
+        // timeInput.appendChild(eve);
+
+        // timeOfDayDiv.appendChild(timeLabel);
+        // timeOfDayDiv.appendChild(timeInput);
+
+        // const br = document.createElement('br');
+        // timeOfDayDiv.appendChild(br);
+
+        // const pickupLabel = document.createElement('label');
+        // pickupLabel.setAttribute('for', 'pickup');
+        // pickupLabel.textContent = 'Pickup Location: '
+
+        // const pickupInput = document.createElement('input');
+        // pickupInput.id = 'pickup';
+
+
+        // timeOfDayDiv.appendChild(pickupLabel);
+        // timeOfDayDiv.appendChild(pickupInput);
+
+        // const secondDiv = document.createElement('div');
+        // secondDiv.classList.add('mt-10');
+        // // Add other form elements to the second div as needed
+
+        // // Append timeOfDayDiv and secondDiv to grid container
+        // gridContainer.appendChild(timeOfDayDiv);
+        // gridContainer.appendChild(secondDiv);
+
+        // // Create Stops sectionco
+        // const stopsSection = document.createElement('div');
+        // stopsSection.classList.add('mt-3', 'text-gray-500', 'font-semibold', 'ml-5');
+
+        // // Create grid container for stops
+        // const stopsGridContainer = document.createElement('div');
+        // stopsGridContainer.classList.add('grid', 'grid-cols-2', 'gap-5', 'pl-5', 'pr-5');
+
+        // // Create span for Stop 1
+        // const stop1Span = document.createElement('span');
+
+        // const stop1Label = document.createElement('label');
+        // stop1Label.setAttribute('for', 'stop1');
+        // stop1Label.textContent = 'Stop 1: *';
+
+        // const stop1Input = document.createElement('input');
+        // stop1Input.type = 'text';
+        // stop1Input.name = '';
+        // stop1Input.id = 'stop1';
+        // stop1Input.required = true;
+        // stop1Input.classList.add('bg-gray-200');
+
+        // const costLabel = document.createElement('label');
+        // costLabel.setAttribute('for', 'cost');
+        // costLabel.textContent = 'Cost:';
+
+        // const costInput = document.createElement('input');
+        // costInput.type = 'text';
+        // costInput.name = '';
+        // costInput.id = 'cost';
+
+        // stop1Span.appendChild(stop1Label);
+        // stop1Span.appendChild(stop1Input);
+        // stop1Span.appendChild(document.createElement('br'));
+        // stop1Span.appendChild(document.createElement('br'));
+        // stop1Span.appendChild(costLabel);
+        // stop1Span.appendChild(costInput);
+
+        // // Create span for Arrival Time
+        // const arrivalTimeSpan = document.createElement('span');
+
+        // const arrivalTimeLabel = document.createElement('label');
+        // arrivalTimeLabel.setAttribute('for', 'stopArrive');
+        // arrivalTimeLabel.textContent = 'Arrival Time *';
+
+        // const arrivalTimeInput = document.createElement('input');
+        // arrivalTimeInput.type = 'text';
+        // arrivalTimeInput.name = '';
+        // arrivalTimeInput.id = 'stopArrive';
+        // arrivalTimeInput.required = true;
+        // arrivalTimeInput.classList.add('bg-gray-200');
+
+        // arrivalTimeSpan.appendChild(arrivalTimeLabel);
+        // arrivalTimeSpan.appendChild(arrivalTimeInput);
+
+        // // Append spans to stopsGridContainer
+        // stopsGridContainer.appendChild(stop1Span);
+        // stopsGridContainer.appendChild(arrivalTimeSpan);
+
+
+        
+        // const addStopButton = document.createElement('div');
+        // addStopButton.classList.add('flex', 'justify-center');
+        // addStopButton.innerHTML = `
+        //     <a href="#" class="flex items-center justify-center rounded-lg py-2 mt-5 w-1/2 shadow-lg">
+        //         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#011936" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"/></svg>
+        //         <p>Add a Stop</p>
+        //     </a>
+        // `;
+
+        // form.appendChild(titleSpan);
+        // form.appendChild(tripTopic);
+        // form.appendChild(gridContainer);
+        // form.appendChild(stopsGridContainer);
+
+        // randDiv.appendChild(form);
+        // randDiv.appendChild(addStopButton);
+
+        // // Append elements to modal content
+        // modalContent.appendChild(headSpan);
+        // modalContent.appendChild(title);
+        // modalContent.appendChild(randDiv);
+        // // modalContent.appendChild(addStopButton);
+
+        // // Append modal content to modal overlay
+        // modalOverlay.appendChild(modalContent);
+
+        // // Append modal overlay to container
+        // modalContainer.appendChild(modalOverlay);
     </script>
 </body>
 </html>
