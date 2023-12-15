@@ -417,18 +417,21 @@ def book_trip(request) -> HttpResponse:
     :return:
     """
 
-    # Get user details
-    token_key = request.headers.get('Authorization').split(' ')[1]
-
-    # Fetch the token object from the database
-    try:
-        token = Token.objects.get(key=token_key)
-    except Token.DoesNotExist:
-        # Handle the case where the token is not valid
-        return HttpResponse(content="Invalid User!", status=401)
+    # # Get user details
+    # token_key = request.headers.get('Authorization').split(' ')[1]
+    #
+    # # Fetch the token object from the database
+    # try:
+    #     token = Token.objects.get(key=token_key)
+    # except Token.DoesNotExist:
+    #     # Handle the case where the token is not valid
+    #     return HttpResponse(content="Invalid User!", status=401)
 
     # Retrieve the user and requsted stop
-    user = token.user
+    user_id = request.query_params.get('user_id')
+    user = AshesiEmployee.objects.get(employee_id=user_id)
+
+    # user = token.user
     user_stopid = request.data.get('stop_id')
     user_tripid = request.data.get('trip_id') #check if trip exists
     trip = Trip.objects.get(trip_id=user_tripid)
@@ -560,16 +563,19 @@ def get_ticket_history(request) -> HttpResponse | JsonResponse:
     """
 
     # Get user details
-    token_key = request.headers.get('Authorization').split(' ')[1]
+    # token_key = request.headers.get('Authorization').split(' ')[1]
+    #
+    # # Fetch the token object from the database
+    # try:
+    #     token = Token.objects.get(key=token_key)
+    # except Token.DoesNotExist:
+    #     # Handle the case where the token is not valid
+    #     return HttpResponse(content="Invalid User!", status=401)
 
-    # Fetch the token object from the database
-    try:
-        token = Token.objects.get(key=token_key)
-    except Token.DoesNotExist:
-        # Handle the case where the token is not valid
-        return HttpResponse(content="Invalid User!", status=401)
+    user_id = request.query_params.get('user_id')
+    user = AshesiEmployee.objects.get(employee_id=user_id)
 
-    user = token.user
+    # user = token.user
     userTickets = Ticket.objects.filter(employee_id=user.employee_id)
     tickets = []
 
